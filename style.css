@@ -20,6 +20,12 @@ a {
  		width: 800px; 
  		height: 470px; 
  		} 
+  .JungleClub {
+    position: relative;
+    background: url(/JungleClub.jpg); 
+    width: 612px; 
+    height: 612px; 
+  }
  	.bottomleft { 
  		font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
  		position: absolute; 
@@ -40,3 +46,14 @@ a {
  		font-weight: bold; 
  		font-size: 28px; 
  		opacity: .8 } 
+  .toprightsmall { 
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: absolute; 
+    top: 1em; 
+    left: 0; 
+    width: 800px; 
+    padding: 4px; 
+    background-color: #fff; 
+    font-weight: bold; 
+    font-size: 28px; 
+    opacity: .8 } 
