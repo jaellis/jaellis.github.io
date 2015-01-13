@@ -1,6 +1,6 @@
 body {
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.43;
     color: #565A5C;
     background-color: #F5F5F5;
@@ -8,11 +8,39 @@ body {
 }
 
 body {
-    margin: 40px;
+    margin-left: 60px;
+    margin-right: 200px;
 }
-/*remove underline in href*/
+
+x {
+  font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height: 1.43;
+  font-size: 24px;
+  color:#FF9933;
+  background-color: #F5F5F5;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+p.italic {
+    font-style: italic;
+}
+p.citation {
+  font-size: 14px
+}
+p.indent {
+  margin-left: 50px;
+}
+p.lgcol {
+  font-size: 16;
+  width: 500px;
+}
+p.smcol {
+  font-size: 16;
+  width: 300px;
+}
 a {
       text-decoration:none;
+      color: #338533;
    }
 	.outer { 
 		position: relative;
@@ -26,6 +54,12 @@ a {
     width: 612px; 
     height: 612px; 
   }
+  .RockWriting {
+    position: relative;
+    background: url(/ChineseWritingRock2008.jpg); 
+    width: 604px; 
+    height: 408px; 
+  }
  	.bottomleft { 
  		font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
  		position: absolute; 
@@ -38,7 +72,7 @@ a {
  	.topright { 
  		font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
  		position: absolute; 
- 		top: 3em; 
+ 		top: 2em; 
  		left: 0; 
  		width: 800px; 
  		padding: 4px; 
@@ -49,7 +83,7 @@ a {
   .toprightJC { 
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     position: absolute; 
-    top: 3em; 
+    top: 5em; 
     left: 0; 
     width: 600px; 
     padding: 4px; 
@@ -57,3 +91,4 @@ a {
     font-weight: bold; 
     font-size: 18px; 
     opacity: .8 } 
+
