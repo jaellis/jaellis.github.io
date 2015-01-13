@@ -46,14 +46,14 @@ a {
  		font-weight: bold; 
  		font-size: 28px; 
  		opacity: .8 } 
-  .toprightsmall { 
+  .toprightJC { 
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     position: absolute; 
     top: 1em; 
     left: 0; 
-    width: 800px; 
+    width: 600px; 
     padding: 4px; 
     background-color: #fff; 
     font-weight: bold; 
-    font-size: 28px; 
+    font-size: 18px; 
     opacity: .8 } 
