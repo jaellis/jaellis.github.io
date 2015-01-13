@@ -8,5 +8,31 @@ body {
 }
 
 body {
-    margin: 0px;
+    margin: 40px;
 }
+	.outer { 
+		position: relative;
+ 		background: url(/NU_Physiology_1900.jpg); 
+ 		width: 800px; 
+ 		height: 470px; 
+ 		} 
+ 	.bottomleft { 
+ 		font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ 		position: absolute; 
+ 		bottom: 0;
+ 		left: 0.5em; 
+ 		width: 400px; 
+ 		font-weight: 
+ 		bold; color: #fff; 
+ 		} 
+ 	.topright { 
+ 		font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ 		position: absolute; 
+ 		top: 1em; 
+ 		left: 0; 
+ 		width: 800px; 
+ 		padding: 4px; 
+ 		background-color: #fff; 
+ 		font-weight: bold; 
+ 		font-size: 28px; 
+ 		opacity: .8 } 
