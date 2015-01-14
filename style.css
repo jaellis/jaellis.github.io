@@ -73,13 +73,13 @@ a:hover {
 }
 	.outer { 
 		position: relative;
- 		background: url(/NU_Physiology_1900.jpg); 
+ 		background: url(/NU_Physiology_1900.png); 
  		width: 800px; 
  		height: 470px; 
  		} 
   .JungleClub {
     position: relative;
-    background: url(/JungleClub.jpg); 
+    background: url(/JungleClub.png); 
     width: 612px; 
     height: 612px; 
   }
