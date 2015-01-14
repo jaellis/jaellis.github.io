@@ -41,7 +41,6 @@ x {
     width:300px;
   }
 hdiv:hover {
-   transition-delay: 0.3s;
   background-color: #CCCCCC;
 }
 
