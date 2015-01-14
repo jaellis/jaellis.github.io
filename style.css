@@ -21,6 +21,30 @@ x {
     -moz-osx-font-smoothing: grayscale;
 }
 
+#wrap {
+    width:1000px;
+    margin:0;
+  }
+#left_col {
+  float:left;
+    margin-left:0px;
+    width:290px;
+    padding-left:20px;
+  }
+#mid_col {
+   float:left;
+    width:320px;
+    padding-left:20px;
+  }
+#right_col {
+    float:left;
+    width:300px;
+  }
+hdiv:hover {
+   transition-delay: 0.3s;
+  background-color: #CCCCCC;
+}
+
 p.italic {
     font-style: italic;
 }
@@ -37,6 +61,9 @@ p.lgcol {
 p.smcol {
   font-size: 16;
   width: 300px;
+}
+emph {
+  font-style:bold;
 }
 a {
       text-decoration:none;
@@ -74,7 +101,7 @@ a {
  		position: absolute; 
  		top: 2em; 
  		left: 0; 
- 		width: 800px; 
+ 		width: 350px; 
  		padding: 4px; 
  		background-color: #fff; 
  		font-weight: bold; 
