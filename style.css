@@ -20,6 +20,9 @@ x {
   background-color: #F5F5F5;
     -moz-osx-font-smoothing: grayscale;
 }
+fancy {
+  font-family:Zapf Chancery,cursive;
+}
 
 #wrap {
     width:1000px;
@@ -88,6 +91,20 @@ a:hover {
     background: url(/ChineseWritingRock2008.jpg); 
     width: 604px; 
     height: 408px; 
+  }
+  .FingerPainting {
+    position: relative;
+    background: url(/fingerpainting.png); 
+    width: 650px; 
+    height: 404px; 
+
+  }
+   .SDCars {
+    position: relative;
+    background: url(/selfdrivinggooglecars.png); 
+    width: 650px; 
+    height: 362; 
+
   }
  	.bottomleft { 
  		font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
