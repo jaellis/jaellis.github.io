@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>	
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+</head>
+
+<body>
+	current chicago weather: <span id="temp"/>
+</body>
+
+<script>
+
+
+	// var data = $.getJSON("http://api.openweathermap.org/data/2.5/forecast/city?id=4887398&APPID=f3b241452cc1d701fd6ca58c8b9ab5b9");
+
+	var data = getWeather();
+
+	function getWeather() {
+		return $.getJSON("http://api.openweathermap.org/data/2.5/forecast/city?id=4887398&APPID=f3b241452cc1d701fd6ca58c8b9ab5b9");
+	}
+
+	function gettemp(d) {
+		console.log(Object.getOwnPropertyNames(d));
+		console.log(Object.getOwnPropertyNames(d)[18]);
+		var bin = [];
+		for (key in d) {
+			bin.push(d[key])
+			console.log(key);
+		}
+		console.log(bin);
+	return bin; 
+}
+document.getElementById("temp").innerHTML = gettemp(data);
+
+
+</script>
+
+
+<!-- var sugar = require('sugar');
+Weather.getCurrent("Kansas City", function(current) {
+  console.log(
+    ["currently:",current.temperature(),"and",current.conditions()].join(" ")
+  );
+});
+console.log('ok');
+Weather.getForecast("Kansas City", function(forecast) {
+  console.log("forecast high: " + forecast.high());
+  console.log("forecast low: " + forecast.low());
+}); -->
+
+
+
