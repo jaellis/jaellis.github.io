@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+    <style type="text/css">
+
+#map {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+.stations svg {
+  position: absolute;
+  width: 140px;
+  height: 20px;
+  /*padding-right: 100px;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-style: bold;
+  font: 10px sans-serif;
+}
+
+.stations circle {
+  fill: brown;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+.stations path {
+  stroke-width: 1px;
+  stroke: white;
+  fill: #999;
+  cursor: pointer;
+}
+
+div.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  padding: 4px 8px;
+  display: none;
+}
+    </style>
+  </head>
+  <body>
+    <div id="map" style="width:700; height:300;position:absolute;"></div>
+    <script type="text/javascript">
+
+// Create the Google Map…
+var map = new google.maps.Map(d3.select("#map").node(), {
+  zoom: 2,
+  center: new google.maps.LatLng(39.009046, -77.117829),
+  // center: new google.maps.LatLng(0.0000, 0.0000),
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+
+// Load the station data. When the data comes back, create an overlay.
+d3.json("travels.json", function(data) {
+  var overlay = new google.maps.OverlayView();
+
+console.log(data);
+
+var points = data.features;
+
+var color = d3.scale.quantize()
+    .domain([328,1305])
+    .range(d3.range(8).map(function(i) { return "q" + i + "-8"; }));
+
+var tooltip = d3.select("body").append("div").attr("class","tooltip");
+
+  // Add the container when the overlay is added to the map.
+  overlay.onAdd = function() {
+    var layer = d3.select(this.getPanes().overlayLayer).append("div")
+        .attr("class", "stations");
+
+    // Draw each marker as a separate SVG element.
+    // We could use a single SVG, but what size would it have?
+    overlay.draw = function() {
+      var projection = this.getProjection(),
+          padding = 10;
+
+      var marker = layer.selectAll("svg")
+          .data(d3.entries(points))
+          .each(transform) // update existing markers
+        .enter().append("svg:svg")
+          .each(transform)
+          .attr("class", "marker");
+
+      // Add a circle.
+      marker.append("svg:circle")
+          .attr("r", 6)
+          .attr("cx", padding)
+          .attr("cy", padding)
+          // .attr("class", function(d) { return (typeof color(d.value.properties["Num Searches"]) == "string" ? color(d.value.properties["Num Searches"]) : ""); })
+          .on("mouseover",showTooltip)
+          .on("mousemove",moveTooltip)
+          .on("mouseout",hideTooltip);
+
+      // Add a label.
+      marker.append("svg:text")
+          .attr("x", padding + 7)
+          .attr("y", padding)
+          .attr("dy", ".31em")
+          .text(function(d) { return d.value.properties.Name; });
+
+      function transform(d) {
+        d = new google.maps.LatLng(d.value.geometry.coordinates[0],
+          d.value.geometry.coordinates[1]);
+        d = projection.fromLatLngToDivPixel(d);
+        return d3.select(this)
+            .style("left", (d.x - padding) + "px")
+            .style("top", (d.y - padding) + "px");
+            print(d);
+      }
+    };
+  };
+
+  // Bind our overlay to the map…
+  overlay.setMap(map);
+});
+
+//Position of the tooltip relative to the cursor
+var tooltipOffset = {x: 5, y: -25};
+
+//Create a tooltip, hidden at the start
+function showTooltip(d) {
+  moveTooltip();
+
+  tooltip.style("display","block")
+      .text(d.value.properties["Story"]);
+}
+
+//Move the tooltip to track the mouse
+function moveTooltip() {
+  tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
+      .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
+}
+
+//Create a tooltip, hidden at the start
+function hideTooltip() {
+  tooltip.style("display","none");
+}
+
+    </script>
+  </body>
+</html>
