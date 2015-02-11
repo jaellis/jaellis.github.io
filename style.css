@@ -74,6 +74,11 @@ a {
 a:hover {
   background-color: #CCCCCC;
 }
+#aNoHover {
+      text-decoration:none;
+      color: #338533;
+   }
+
 	.outer { 
 		position: relative;
  		background: url(/NU_Physiology_1900.png); 
