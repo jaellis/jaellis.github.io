@@ -63,14 +63,27 @@ div.tooltip {
 <title>James A Ellis: Data Visualizations</title>
 
 <body>
-	<div class="FingerPainting"> 
-		<p class="toprightJC"  style =" padding-left: 65px;left:316px; width:265px; top:3em; font-size:24;">Data Viz</p>
-	</div>
+	<header>
+	<div class="FingerPainting"></div>
+	<div class="FingerPaintingblurred-image" onload="blurThis()" onscroll="blurThis()"></div>
+</header>
 
+	<p class="toprightJC"  style ="padding-left:200px; width:90%; top:3em; font-size:36;">Data Viz</p>
+
+	<div style="height:550px; width 100%; clear:both;"></div>
 <div>
-  <h2 style="width:700px;">My adopted city's crime fascinates me. In my free time I try to visualize its spread, patterns and underlying stories.<br><br>Here's a Heatmap of Crimes in Chicago</h2></div>
+  <h1 style="padding-left:400px;width:500px">Data tell sloppy stories.</h1><br>
+</div>
+<div>
+  <!-- <h2 style="width:500px">From years of experience and training, I know how to pull meaning out of the mess.</h2><br> -->
+</div>
+<div>
+  <!-- <h2 style="padding-left:400px;width:500px"> -->
+  <h2 style="width:500px">My adopted city's crime fascinates me. In my free time I try to visualize its spread, patterns and underlying stories.</h2><br><br>
+  <h2 style="width:500px;">Here's a Heatmap of Crimes in Chicago</h2>
+</div>
   <div id="map"></div>
-  <form style="left:600px; top:600px">
+  <form style="left:600px; top:1000px;">
   <input type="radio" name="dataset" value="BATTERY" onClick="updateData('BATTERY')"> Battery<br>
   <input type="radio" name="dataset" value="INTERFERENCE WITH PUBLIC OFFICER" onClick="updateData('INTERFERENCE WITH PUBLIC OFFICER')"> Interference with officer<br>
   <input type="radio" name="dataset" value="KIDNAPPING" onClick="updateData('KIDNAPPING')"> Kidnapping<br>
@@ -89,11 +102,13 @@ div.tooltip {
   <input type="radio" name="dataset" value="ARSON" onClick="updateData('ARSON')"> Arson<br>
 </form>
 <!-- <graph style="padding-left:200px; top:100px;"></graph> -->
-
+<div>
+  <h2 style="width:500px; font-size:24;">With every new selection, the shading of wards is updated and normalized over the range of that crime's frequency throughout the city.</h2><br>
+</div>
 	<div style="font-size:24">
-		<br>Some more visualizations of crime in Chicago.<br> 
+		<br><br>Some more visualizations of crime in Chicago.<br> 
 		<span style="background-color:#FFFF00; color:#FF4719;">Under Construction</span>
-		<p> <a href ="http://bl.ocks.org/jaellis/b1f64f34b7bb6a0fc2a5" target="_blank">  <img src="/ChiCrimebyMonth.png" alt="Crime by Month" style="width:325px;height:233px; padding-left:50px; padding-right:100px;"></a>&nbsp;
+		<p> <a href ="http://bl.ocks.org/jaellis/b1f64f34b7bb6a0fc2a5" target="_blank">  <img src="/ChiCrimebyMonth.png" alt="Crime by Month" style="width:325px;height:233px;"></a>&nbsp;
 		 <a href ="http://bl.ocks.org/jaellis/02a95bc1d86931ee6b6e" target="_blank">  <img src="/ChiCrimebyType.png" alt="Crime by Type" style="width:325px;height:233px;"></a> </p>
 	</div>
 <div id="links"><h2><br><br>
@@ -105,6 +120,19 @@ div.tooltip {
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
+function blurThis() {
+    console.log($(window).scrollTop());
+$(document).ready(function() {
+    $(window).scroll(function(e) {
+        var s = $(window).scrollTop(),
+            opacityVal = (s / 200);
+
+        $('.FingerPaintingblurred-image').css('opacity', opacityVal);
+    
+
+    });
+});
+}
 
 var dispatch = d3.dispatch("load", "statechange");
 
@@ -270,9 +298,9 @@ console.log(thiscrime);
          console.log(d.properties[crimeType]);
         });
     features
-        .on("mouseover",showTooltip)
-        .on("mousemove",moveTooltip)
-        .on("mouseout",hideTooltip)
+        // .on("mouseover",showTooltip)
+        // .on("mousemove",moveTooltip)
+        // .on("mouseout",hideTooltip)
         .on("click",clicked);    
 
     // More Graph stuffz //////////////////
@@ -372,6 +400,7 @@ function hideTooltip() {
   tooltip.style("display","none");
 }
 
+window.onload(blurThis());
 </script>
 
 </body>
