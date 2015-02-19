@@ -11,7 +11,18 @@ body {
     margin-left: 60px;
     margin-right: 200px;
 }
-
+footer {
+  color: #F5F5F5;
+  text-align:center;
+  background-color: #6E6E6E;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  margin-left: -100px;
+  margin-right: -300px;
+  z-index: -5;  
+}
 x {
   font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 1.43;
@@ -207,3 +218,56 @@ a:hover {
     filter: blur(20px) brightness(0.7);
 }
    
+/*Crazy Stuff*/
+#tiltup {
+    -webkit-transform: matrix(1, -0.2, 0, 1, 0, 0);
+    -o-transform: matrix(1, -0.2, 0, 1, 0, 0);
+    transform: matrix(1, -0.2, 0, 1, 0, 0);
+}
+#rotateUP5
+{
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg); /* IE 9 */
+    -webkit-transform: rotate(-5deg); /* Chrome, Safari, Opera */
+    transform: rotate(-5deg);
+}
+#rotateDWN5
+{
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg); /* IE 9 */
+    -webkit-transform: rotate(5deg); /* Chrome, Safari, Opera */
+    transform: rotate(5deg);
+}
+#rotateUP20
+{
+    -moz-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg); 
+    transform: rotate(-20deg);
+}
+#rotateUP90
+{
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg); 
+    transform: rotate(-90deg);
+}
+#rotateUP40
+{
+    -moz-transform: rotate(-40deg);
+    -ms-transform: rotate(-40deg);
+    -webkit-transform: rotate(-40deg); 
+    transform: rotate(-40deg);
+}
+#rotateDWN90
+{
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg); 
+    transform: rotate(90deg);
+}
+#stretch1{
+   -ms-transform: skew(30deg,20deg);
+    -webkit-transform: skew(30deg,20deg); 
+    transform: skew(30deg,20deg);
+}
