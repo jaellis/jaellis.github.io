@@ -65,26 +65,28 @@ div.tooltip {
 
 <body>
 	<header>
-	<div class="FingerPainting"></div>
-	<div class="FingerPaintingblurred-image" onload="blurThis()" onscroll="blurThis()"></div>
+	<div class="FingerPainting" style="margin-left:-20%; margin-right:-200px;"></div>
 </header>
 
-	<p class="toprightJC"  style ="padding-left:200px; width:90%; top:3em; font-size:36;">Data Viz</p>
-
-	<div style="height:550px; width 100%; clear:both;"></div>
-<div>
+	<p class="toprightJC"  style ="padding-left:10%; width:95.7%; top:1em; font-size:36;">Data Viz</p>
+<nav class="main-nav">
+    <ul>
+    <ll id="Home" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href ="http://jaellis.com">Home</a></ll>
+    <ll id = "Research" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="research.html">Research</a></ll>
+    <ll id="Muses" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="muses.html">Muses</a></ll>
+    <ll id ="AboutMe" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="aboutme.html">About Me</a></ll>
+  </ul>
+</nav>
+<div id="firstPara">
   <h1 style="padding-left:400px;width:500px">Data tell sloppy stories.</h1><br>
-</div>
-<div>
-  <!-- <h2 style="width:500px">From years of experience and training, I know how to pull meaning out of the mess.</h2><br> -->
 </div>
 <div>
   <!-- <h2 style="padding-left:400px;width:500px"> -->
   <h2 style="width:500px">My adopted city's crime fascinates me. In my free time I try to visualize its spread, patterns and underlying stories.</h2><br><br>
   <h2 style="width:500px;">Here's a Heatmap of Crimes in Chicago</h2>
 </div>
-  <div id="map"></div>
-  <form style="left:600px; top:1000px;">
+  <div id="map" style="left:10%;"></div>
+  <form style="left:60%; top:900px;">
   <input type="radio" name="dataset" value="BATTERY" onClick="updateData('BATTERY')"> Battery<br>
   <input type="radio" name="dataset" value="INTERFERENCE WITH PUBLIC OFFICER" onClick="updateData('INTERFERENCE WITH PUBLIC OFFICER')"> Interference with officer<br>
   <input type="radio" name="dataset" value="KIDNAPPING" onClick="updateData('KIDNAPPING')"> Kidnapping<br>
@@ -112,28 +114,9 @@ div.tooltip {
 		<p> <a href ="http://bl.ocks.org/jaellis/b1f64f34b7bb6a0fc2a5" target="_blank">  <img src="/ChiCrimebyMonth.png" alt="Crime by Month" style="width:325px;height:233px;"></a>&nbsp;
 		 <a href ="http://bl.ocks.org/jaellis/02a95bc1d86931ee6b6e" target="_blank">  <img src="/ChiCrimebyType.png" alt="Crime by Type" style="width:325px;height:233px;"></a> </p>
 	</div>
-<div id="links"><h2><br><br>
-<a href ="http://jaellis.com">Home</a><br>
-<a href="research.html">Research</a><br>
-<a href="arts.html">Muses</a><br>
-<a href="aboutme.html">About Me</a><br>
-</h2></div>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
-function blurThis() {
-    console.log($(window).scrollTop());
-$(document).ready(function() {
-    $(window).scroll(function(e) {
-        var s = $(window).scrollTop(),
-            opacityVal = (s / 200);
-
-        $('.FingerPaintingblurred-image').css('opacity', opacityVal);
-    
-
-    });
-});
-}
 
 var dispatch = d3.dispatch("load", "statechange");
 
@@ -401,11 +384,33 @@ function hideTooltip() {
   tooltip.style("display","none");
 }
 
-window.onload(blurThis());
 </script>
 
 </body>
-<footer>
-  <p>&copy; James Aaron Ellis 2015</p>
+<br><br>
+<footer><h2>
+  <p>James Aaron Ellis &copy; 2015</p></h2>
   <p>Hosting by <a onmouseover="style='background-color:#6E6E6E'" href="https://github.com/" target="_blank"><img src="/GitHub-Mark-32px.png"></a></p>
 </footer>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+
+// Sticky Nav from CodePen
+var  mn = $(".main-nav");
+    mns = "main-nav-scrolled";
+    hdr = 400;
+
+console.log($('header').height());
+
+$(window).scroll(function() {
+  if( $(this).scrollTop() > hdr ) {
+    mn.addClass(mns);
+    document.getElementById("firstPara").style.marginTop="460px";
+    // mn.removeClass('outer');
+  } else {
+    mn.removeClass(mns);
+    document.getElementById("firstPara").style.marginTop="0px";
+    // mn.addClass('outer');
+  }
+});
+</script>

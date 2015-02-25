@@ -43,14 +43,21 @@ qacct:"p-JBXbxkUwQuk5J"
 <title>James A Ellis</title>
 
 <body>
-
- 	<div class="outer"> </div>
- 		<div itemscope itemtype="http://data-vocabulary.org/Person"><p class="toprightJC" style ="padding-left:10%; width:95.7%; top:3em; font-size:36;">my name is <span class="fn author"itemprop="name">james</span>
+ 	<header class="outer"></header>
+ 		<div itemscope itemtype="http://data-vocabulary.org/Person"><p class="toprightJC" style ="padding-left:10%; width:95.7%; top:1em; font-size:36;">my name is <span class="fn author"itemprop="name">james</span>
  		</p> 
 	</div>
-<div style="height:550px; width 100%; clear:both;"></div>
+  <nav class="main-nav">
+    <ul>
+    <ll id="Research" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="research.html">Research</a></ll>
+    <ll id="Visualization" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="visualizations.html">Visualization</a></ll>
+    <ll id = "Muses" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="arts.html">Muses</a></ll>
+<!-- <ll><a href="/map.html">iMap</a> -->
+    <ll id ="AboutMe" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="aboutme.html">About Me</a></ll>
+</ul>
+</nav>
 
-<div itemscope itemtype="http://data-vocabulary.org/Person"><h1 style="width:800px;position:relative;">
+<div id ="firstPara" itemscope itemtype="http://data-vocabulary.org/Person" style="top:350px;"><h1 style="width:800px;position:relative;">
 	I am a neuroscientist and data geek.</h1><h2 style="width:800px;position:relative;"> I am currently finishing my Master's degree in the <a href="http://hartmann.mech.northwestern.edu/" target="_blank">SeNSE Lab</a>, a team within the <a href="http://nxr.northwestern.edu/">Neuroscience and Robotics Group <img src="/neuroscience-x-robotics.png" alt="NxR" style="width:91px;height:33px" align="top"> </a> at <span itemprop="affiliation">Northwestern University</span>.<br></h2>
 </div>
 
@@ -64,11 +71,7 @@ qacct:"p-JBXbxkUwQuk5J"
 	</h2>
 </div>
 
-<!-- <div id="map-text" style="padding-bottom:40px; position:relative;"><h2>I love maps. Here's a <a href="/map.html">map of my life</a></h2></div><br><br> -->
 
-<!-- <div id="d3map" style="width:700px; height:300px; position:absolute; padding-top: 50px;
-padding-bottom: 50px;" onload="initialize()">
-</div> -->
 
 
 <div id="links"><h2>
@@ -81,110 +84,46 @@ padding-bottom: 50px;" onload="initialize()">
 
 <script type="text/javascript">
 
-var svg = d3.select("d3map").append("svg")
-    .attr("width", 700)
-    .attr("height", 400);
+// Sticky Nav from CodePen
+var  mn = $(".main-nav");
+    mns = "main-nav-scrolled";
+    hdr = $('header').height();//+(parseInt($('header').css("margin-top"))-100);
 
-var map;
+console.log(document.getElementById("firstPara").style);
 
-// Create the Google Map…\
-function initialize() {
-  var map = new google.maps.Map(document.getElementById("d3map"), {
-    zoom: 5,
-    center: new google.maps.LatLng(39.0087789,-77.1178769),
-    mapTypeId: google.maps.MapTypeId.TERRAIN
-
-  });
-
-// Load the story and pointdata. When the data comes back, create an overlay.
-d3.json("travels.json", function(data) {
-	console.log(data);
-
-var overlay = new google.maps.OverlayView();
-
-var points = data.features;
-console.log(points);
-
-var tooltip = d3.select("body").append("div").attr("class","tooltip");
-
-  // Add the container when the overlay is added to the map.
-  overlay.onAdd = function() {
-    var layer = d3.select(this.getPanes().overlayLayer).append("div")
-        .attr("class", "stations");
-
-    // Draw each marker as a separate SVG element.
-    // We could use a single SVG, but what size would it have?
-    overlay.draw = function() {
-      var projection = this.getProjection(),
-          padding = 10;
-
-      var marker = layer.selectAll("svg")
-          .data(d3.entries(points))
-          .each(transform) // update existing markers
-        .enter().append("svg:svg")
-          .each(transform)
-          .attr("class", "marker");
-
-      // Add a circle.
-      marker.append("svg:circle")
-          .attr("r", 4.5)
-          .attr("cx", padding)
-          .attr("cy", padding)
-
-
-      // Add a label.
-      marker.append("svg:text")
-          .attr("x", padding + 7)
-          .attr("y", padding)
-          .attr("dy", ".31em")
-          .text(function(d) { return d.value.properties.Name;});
-
-      var Gmarker = google.maps.Marker();
-
-      function transform(d) {
-      	console.log(d);
-      	console.log(d.value.geometry.coordinates);
-        d = new google.maps.LatLng(d.value.geometry.coordinates);
-        d = projection.fromLatLngToDivPixel(d);
-        return d3.select(d)
-            .style("left", (d.x - padding) + "px")
-            .style("top", (d.y - padding) + "px");
-            print(d);
-      }
-    };
-  };
-
-  // Bind our overlay to the map…
-  overlay.setMap(map);
-  // google.maps(map, "resize");
-
+$(window).scroll(function() {
+  if( $(this).scrollTop() > hdr ) {
+    mn.addClass(mns);
+    document.getElementById("firstPara").style.marginTop="470px";
+    // mn.removeClass('outer');
+  } else {
+    mn.removeClass(mns);
+    document.getElementById("firstPara").style.marginTop="0px";
+    // mn.addClass('outer');
+  }
 });
 
+// blur nav choices
+function onmouseoverMe(thisChoice){
+  var filterVal = 'blur(10px)';
+
+  var myChoices = ["AboutMe","Visualizations","Research","Muses"];
+
+  myChoices.pop(myChoices.indexOf(thisChoice))
+
+  console.log(myChoices);
+    // var myChoices = document.getElementById("AboutMe");
+    myChoices.style
+      .css('filter',filterVal)
+      .css('webkitFilter',filterVal)
+      .css('mozFilter',filterVal)
+      .css('oFilter',filterVal)
+      .css('msFilter',filterVal);
 }
-
-      function setMarkers(map, locations) {
-
-		for (var i = 0; i < locations.length; i++) {
-			console.log(locations);
-    		var point = locations[i];
-    		console.log(point.geometry.coordinates);
-    		var myLatLng = new google.maps.LatLng(point.geometry.coordinates);
-    		// console.log(myLatLng);
-    		var marker = new google.maps.Marker({
-       			position: myLatLng,
-       	 		map: map
-	    		});
-  			}	
-      	}
-
-// Add a DOM element listener to initialize map when the div is loaded
-google.maps.event.addDomListener(window, 'load', initialize);
-
-
 </script>
 
 </body>
-<footer>
-  <p>&copy; James Aaron Ellis 2015</p>
+<br><br><footer><h2>
+  <p>James Aaron Ellis &copy; 2015</p></h2>
   <p>Hosting by <a onmouseover="style='background-color:#6E6E6E'" href="https://github.com/" target="_blank"><img src="/GitHub-Mark-32px.png"></a></p>
 </footer>

@@ -6,13 +6,20 @@
 	<link type="text/css" rel="stylesheet" href="/style.css" />
 </head>
 <title>James A Ellis: The Muses</title>
+
+	<header class="RockWriting"></header>
+		<p class="toprightJC"  style ="padding-left:10%; width:95.7%; top:1em; font-size:36;">The Muses</p>
 <body>
-	<div class="RockWriting"></div>
-		<p class="toprightJC"  style ="padding-left:10%; width:85.7%; top:3em; font-size:36;">The Muses</p>
-
-		<div style="height:650px; width 100%; clear:both;"></div>
-
-	<div id="Arts">
+<nav class="main-nav">
+    <ul>
+    <ll id="Home" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href ="http://jaellis.com">Home</a></ll>
+    <ll id = "Research" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="research.html">Research</a></ll>
+    <ll id="Visualization" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="visualizations.html">Visualization</a></ll>
+<!-- <ll><a href="/map.html">iMap</a> -->
+    <ll id ="AboutMe" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="aboutme.html">About Me</a></ll>
+</ul>
+</nav>
+	<div id="firstPara">
 		<h2>My Fiction</h2>
 		<p class ="indent lgcol">I've always loved creative writing. While coding and statistics afford a certain kind of creativity, I hope to one day be able to devote more time to my writing.<br>As with all good nerds, my early writing was dystopian and sci-fi. Over the year my pieces have hewn closer to what might be called literary fiction.<br></p>
 		<h2>Published Work</h2>
@@ -27,14 +34,36 @@
 	</div>
 	<br>
 
-	<div id="links"><h2>
+<!-- 	<div id="links"><h2>
 <a href ="http://jaellis.com">Home</a><br>
 <a href="research.html">Research</a><br>
 <a href="visualizations.html">Visualization</a><br>
 <a href="aboutme.html">About Me</a><br>
-</h2></div>
+</h2></div> -->
 </body>
-<footer>
-  <p>&copy; James Aaron Ellis 2015</p>
+<footer><h2>
+  <p>James Aaron Ellis &copy; 2015</p></h2>
   <p>Hosting by <a onmouseover="style='background-color:#6E6E6E'" href="https://github.com/" target="_blank"><img src="/GitHub-Mark-32px.png"></a></p>
 </footer>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+
+// Sticky Nav from CodePen
+var  mn = $(".main-nav");
+    mns = "main-nav-scrolled";
+    hdr = $('header').height()-240;//+(parseInt($('header').css("margin-top"))-100);
+
+console.log(document.getElementById("firstPara").style);
+
+$(window).scroll(function() {
+  if( $(this).scrollTop() > hdr ) {
+    mn.addClass(mns);
+    document.getElementById("firstPara").style.marginTop="460px";
+    // mn.removeClass('outer');
+  } else {
+    mn.removeClass(mns);
+    document.getElementById("firstPara").style.marginTop="0px";
+    // mn.addClass('outer');
+  }
+});
+</script>
