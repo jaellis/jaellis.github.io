@@ -1,0 +1,331 @@
+source,target,value
+Assets,Blog,1
+viewed risk meter,/logged_out,1
+viewed risk meter,viewed asset details,6
+Connectors,viewed asset details,1
+viewed risk meter,toggled prioritized facet,12
+asset-add-tag,viewed risk meter,1
+/security,risk.io,1
+verified connector,Dashboard,1
+viewed risk meter,visited vulnerabilities tab,29
+Dashboard,visited omniview [app],5
+visited vulnerabilities tab,toggled trending facet,2
+opened threat drawer,risk.io,17
+created risk meter,Dashboard,1
+Dashboard,Assets,2
+toggled prioritized facet,Assets,1
+Campaign,risk.io,2
+opened hud,closed hud,2
+toggled facet sort order,visited vulnerabilities tab,1
+Assets,synced vulnerabilities,214
+visited vulnerabilities tab,deprioritized vulnerability,1
+closed threat drawer,Connectors,1
+visited patches tab,Assets,4
+visited vulnerabilities tab,viewed vulnerability details,1
+viewed risk meter,set asset priority,2
+visited vulnerabilities tab,exported vulnerabilities,2
+searched omni,viewed risk meter,36
+Connectors,viewed homepage,7
+Dashboard,Blog,1
+Sign-Up,arrived on scanners page,1
+Assets,toggled zero_day facet,1
+arrived on scanners page,Sign-Up,3
+visited omniview [app],toggled facet,1
+Blog,toggled has_known_exploits facet,1
+verified connector,Ran a Connector,1
+toggled top_exploit facet,viewed risk meter,31
+visited the users page [app],Assets,1
+risk.io,Blog,8
+Sign-Up,opened threat drawer,2
+viewed vulnerability details,risk.io,37
+Assets,visited patches tab,1
+closed hud,Dashboard,1
+opened hud,visited omniview [app],1
+exported vulnerabilities,Dashboard,1
+Dashboard,toggled facet,4
+visited vulnerabilities tab,visited patches tab,11
+risk.io,asset-bulk-edit-vuln-status,1
+created risk meter,viewed risk meter,1
+Assets,opened threat drawer,1
+created new tech risk meter,Dashboard,2
+toggled facet,viewed risk meter,21
+visited the new users page [app],viewed risk meter,1
+viewed homepage,toggled top_exploit facet,1
+logged into app,opened threat drawer,2
+Assets,logged into app,1
+visited patches tab,toggled has_known_exploits facet,1
+Assets,created connector,3
+visited omniview [app],played home page video,1
+visited omniview [app],Dashboard,26
+opened threat drawer,closed threat drawer,2
+Connectors,Assets,10
+risk.io,logged into app,64
+viewed risk meter,exported fixes via email,1
+visited vulnerabilities tab,synced vulnerabilities,1
+asset-bulk-edit-vuln-status,risk.io,3
+Assets,created risk meter,1
+visited patches tab,Connectors,1
+Sign-Up,Dashboard,1
+viewed vulnerability details,Dashboard,3
+risk.io,Dashboard,302
+toggled top_exploit facet,toggled has_known_exploits facet,4
+visited patches tab,toggled trending facet,1
+visited omniview [app],searched omni,6
+visited omniview [app],toggled trending facet,1
+logged into app,Dashboard,33
+created connector,risk.io,8
+visited omniview [app],Blog,2
+Sign-Up,created connector,6
+visited patches tab,toggled top_exploit facet,1
+risk.io,visited patches tab,1
+asset-bulk-edit-vuln-status,Assets,2
+Features,risk.io,5
+searched omni,risk.io,4
+logged into app,risk.io,38
+Dashboard,risk.io,360
+Ran a Connector,created connector,12
+Assets,risk.io,17
+viewed risk meter,toggled has_known_exploits facet,15
+risk.io,clicked sync scanner data,1
+risk.io,visited omniview [app],203
+viewed risk meter,visited omniview [app],15
+opened hud,Dashboard,1
+risk.io,arrived at resources page,3
+Assets,toggled facet,1
+synced vulnerabilities,closed hud,1
+closed hud,risk.io,1
+risk.io,Features,3
+Connectors,search engine hit,1
+risk.io,arrived at contact page,2
+clicked through threat,closed threat drawer,2
+Dashboard,viewed homepage,16
+visited omniview [app],Connectors,11
+created connector,Dashboard,1
+viewed risk meter,visited patches tab,7
+visited omniview [app],synced vulnerabilities,2
+set asset priority,asset-set-priority,3
+synced vulnerabilities,Dashboard,3
+created connector,opened threat drawer,1
+Assets,viewed risk meter,2
+created new tech risk meter,risk.io,7
+toggled has_known_exploits facet,toggled top_exploit facet,1
+viewed asset details,risk.io,59
+visited vulnerabilities tab,Dashboard,1
+visited the users page [app],visited the new users page [app],3
+risk.io,FAQ,2
+viewed risk meter,Dashboard,13
+toggled top_exploit facet,toggled trending facet,1
+opened threat drawer,visited vulnerabilities tab,1
+arrived at login page,Dashboard,1
+visited vulnerabilities tab,toggled top_exploit facet,12
+risk.io,opened threat drawer,8
+Dashboard,synced vulnerabilities,1
+/logged_out,risk.io,10
+Dashboard,toggled has_known_exploits facet,1
+visited vulnerabilities tab,risk.io,13
+opened hud,visited the users page [app],1
+Connectors,viewed risk meter,3
+Connectors,Dashboard,13
+risk.io,arrived on the dell landing page,1
+viewed homepage,Dashboard,5
+Dashboard,opened threat drawer,11
+viewed homepage,visited omniview [app],500
+toggled top_exploit facet,visited patches tab,1
+opened hud,visited vulnerabilities tab,1
+arrived at resources page,risk.io,3
+risk.io,arrived at about page,5
+asset-set-priority,risk.io,2
+clicked sync scanner data,closed threat drawer,1
+risk.io,visited the new users page [app],6
+Ran a Connector,viewed risk meter,1
+visited vulnerabilities tab,Connectors,2
+visited omniview [app],opened hud,4
+viewed risk meter,logged into app,1
+viewed risk meter,exported vulnerabilities,1
+visited omniview [app],viewed risk meter,104
+exported vulnerabilities,toggled has_known_exploits facet,1
+Ran a Connector,opened threat drawer,1
+opened threat drawer,Dashboard,10
+Dashboard,toggled top_exploit facet,2
+risk.io,viewed vulnerability details,45
+viewed risk meter,toggled facet,17
+viewed homepage,Features,1
+Ran a Connector,Assets,1
+signed up,risk.io,10
+prioritized vulnerability,Assets,1
+created risk meter,Blog,1
+toggled prioritized facet,viewed risk meter,20
+risk.io,visited the custom field definitions page [app],7
+visited the users page [app],Connectors,1
+toggled top_exploit facet,risk.io,2
+verified connector,Connectors,1
+asset-set-priority,set asset priority,1
+visited patches tab,viewed homepage,1
+Sign-Up,Connectors,2
+opened hud,viewed risk meter,6
+arrived at login page,logged into app,2
+visited omniview [app],arrived at login page,1
+created asset group,viewed risk meter,2
+viewed risk meter,toggled top_exploit facet,16
+risk.io,toggled top_exploit facet,2
+toggled facet,created risk meter,5
+Blog,risk.io,13
+clicked sync scanner data,opened threat drawer,1
+risk.io,exported vulnerabilities,1
+risk.io,created connector,1
+visited patches tab,visited vulnerabilities tab,8
+/tour,risk.io,2
+visited vulnerabilities tab,Assets,7
+closed threat drawer,opened threat drawer,2
+Ran a Connector,risk.io,19
+Connectors,visited omniview [app],2
+viewed homepage,viewed asset details,1
+viewed asset details,Dashboard,7
+played home page video,risk.io,1
+Dashboard,closed threat drawer,5
+arrived at about page,synced vulnerabilities,1
+visited patches tab,risk.io,4
+risk.io,/tour,2
+risk.io,/logged_out,10
+viewed risk meter,viewed homepage,7
+visited vulnerabilities tab,viewed risk meter,2
+created asset group,Dashboard,1
+viewed risk meter,search engine hit,1
+opened threat drawer,clicked sync scanner data,2
+arrived at contact page,risk.io,1
+visited omniview [app],viewed homepage,67
+risk.io,arrived at login page,16
+viewed asset details,viewed risk meter,4
+viewed vulnerability details,opened threat drawer,1
+viewed risk meter,toggled facet sort order,1
+viewed asset details,visited omniview [app],1
+search engine hit,risk.io,8
+closed threat drawer,risk.io,2
+toggled has_known_exploits facet,risk.io,1
+created connector,verified connector,1
+closed threat drawer,clicked sync scanner data,1
+viewed asset details,viewed vulnerability details,1
+viewed homepage,opened hud,1
+Connectors,created connector,7
+risk.io,search engine hit,7
+viewed homepage,toggled has_known_exploits facet,1
+toggled has_known_exploits facet,viewed risk meter,22
+arrived on the dell landing page,risk.io,1
+visited omniview [app],Assets,5
+Connectors,synced vulnerabilities,9
+synced vulnerabilities,created connector,1
+created connector,Ran a Connector,17
+verified connector,risk.io,1
+closed threat drawer,Dashboard,3
+visited vulnerabilities tab,prioritized vulnerability,1
+Connectors,Features,1
+viewed risk meter,searched omni,29
+risk.io,visited vulnerabilities tab,2
+Connectors,verified connector,2
+arrived at about page,risk.io,4
+risk.io,arrived at video,1
+closed threat drawer,viewed risk meter,3
+synced vulnerabilities,viewed risk meter,1
+Connectors,risk.io,567
+arrived at login page,risk.io,17
+synced vulnerabilities,Assets,180
+risk.io,arrived on scanners page,4
+arrived at video,Dashboard,1
+viewed homepage,toggled prioritized facet,3
+Dashboard,Ran a Connector,1
+Assets,Dashboard,6
+viewed homepage,visited vulnerabilities tab,3
+Dashboard,visited the custom field definitions page [app],1
+viewed risk meter,visited the users page [app],1
+viewed risk meter,risk.io,135
+asset-add-tag,risk.io,1
+visited the users page [app],risk.io,18
+risk.io,toggled facet,1
+risk.io,Assets,8
+visited vulnerabilities tab,toggled facet,1
+visited omniview [app],toggled zero_day facet,1
+risk.io,signed up,8
+visited vulnerabilities tab,asset-bulk-edit-vuln-status,2
+logged into app,Assets,1
+synced vulnerabilities,risk.io,26
+Assets,toggled trending facet,2
+Sign-Up,risk.io,24
+logged into app,visited omniview [app],1
+Ran a Connector,Dashboard,1
+risk.io,Campaign,2
+viewed asset details,asset-bulk-edit-vuln-status,1
+visited vulnerabilities tab,toggled prioritized facet,4
+risk.io,Ran a Connector,4
+Dashboard,logged into app,3
+risk.io,/security,1
+viewed risk meter,toggled zero_day facet,1
+toggled facet,Connectors,1
+Connectors,Ran a Connector,7
+FAQ,risk.io,2
+viewed risk meter,created asset group,3
+visited omniview [app],toggled has_known_exploits facet,3
+Dashboard,viewed risk meter,8
+risk.io,opened hud,1
+visited patches tab,viewed risk meter,2
+Dashboard,created new tech risk meter,9
+clicked sync scanner data,risk.io,1
+arrived on scanners page,risk.io,2
+visited omniview [app],viewed asset details,2
+opened threat drawer,clicked through threat,2
+viewed homepage,risk.io,214
+closed hud,toggled top_exploit facet,1
+risk.io,synced vulnerabilities,3
+risk.io,viewed risk meter,32
+clicked sync scanner data,Connectors,1
+risk.io,Connectors,614
+toggled zero_day facet,viewed risk meter,3
+synced vulnerabilities,opened threat drawer,1
+risk.io,closed threat drawer,2
+risk.io,asset-add-tag,1
+closed hud,opened hud,1
+risk.io,searched omni,1
+toggled trending facet,viewed risk meter,26
+viewed homepage,viewed risk meter,10
+viewed risk meter,asset-add-tag,2
+viewed risk meter,Assets,7
+viewed homepage,arrived at login page,2
+risk.io,Sign-Up,24
+visited the custom field definitions page [app],risk.io,8
+search engine hit,Connectors,1
+exported vulnerabilities,searched omni,1
+synced vulnerabilities,Connectors,1
+signed up,Sign-Up,1
+prioritized vulnerability,visited omniview [app],1
+viewed risk meter,asset-bulk-edit-vuln-status,2
+viewed vulnerability details,viewed homepage,1
+visited omniview [app],toggled prioritized facet,2
+viewed risk meter,toggled trending facet,17
+asset-add-tag,searched omni,1
+toggled has_known_exploits facet,toggled trending facet,2
+risk.io,viewed homepage,703
+viewed asset details,Connectors,1
+Assets,visited vulnerabilities tab,11
+toggled top_exploit facet,searched omni,1
+risk.io,viewed asset details,65
+logged into app,viewed homepage,1
+Dashboard,viewed asset details,1
+viewed vulnerability details,viewed risk meter,5
+created risk meter,risk.io,3
+Dashboard,Connectors,9
+viewed risk meter,opened hud,5
+visited omniview [app],toggled top_exploit facet,7
+visited omniview [app],visited vulnerabilities tab,6
+toggled has_known_exploits facet,visited omniview [app],1
+synced vulnerabilities,Ran a Connector,2
+exported vulnerabilities,risk.io,1
+Connectors,Sign-Up,7
+risk.io,visited the users page [app],22
+deprioritized vulnerability,prioritized vulnerability,2
+risk.io,verified connector,1
+Blog,visited patches tab,1
+visited omniview [app],risk.io,454
+viewed homepage,searched omni,1
+visited omniview [app],visited patches tab,1
+visited the new users page [app],risk.io,8
+Assets,Ran a Connector,2
+viewed risk meter,closed hud,1
