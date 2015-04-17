@@ -6,7 +6,7 @@
 	<meta property="og:description" content="what I do and who I am"/>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-  <meta name="keywords" contents="james,ellis,neuroscience,northwestern,data,bethesda,walter johnson,data,science"/>
+  <meta name="keywords" contents="#lostdogproductions,lostdogproductions,lost,dog,productions,james,ellis,neuroscience,northwestern,data,bethesda,walter johnson,data,science"/>
   <meta name="description" content="My name is James. I am a neuroscientist and data geek."/>
   <meta name="robots" content="index,follow"/>
   <meta name="google-site-verification" content="YLVZkBN-aqiCdvmmUUQbHgbyJ5y2_HxR2JbFIPVfH9Q" />
@@ -47,7 +47,7 @@ qacct:"p-JBXbxkUwQuk5J"
  		<div itemscope itemtype="http://data-vocabulary.org/Person"><p class="toprightJC" style ="padding-left:10%; width:95.7%; top:1em; font-size:36;">my name is <span class="fn author"itemprop="name">james</span>
  		</p> 
 	</div>
-  <nav class="main-nav">
+  <nav id ="navbar" class="main-nav">
     <ul>
     <ll id="Research" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="research.html">Research</a></ll>
     <ll id="Visualization" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="visualizations.html">Visualization</a></ll>
@@ -89,17 +89,15 @@ var  mn = $(".main-nav");
     mns = "main-nav-scrolled";
     hdr = $('header').height();//+(parseInt($('header').css("margin-top"))-100);
 
-console.log(document.getElementById("firstPara").style);
+console.log(document.getElementById("navbar").style.marginTop);
 
 $(window).scroll(function() {
   if( $(this).scrollTop() > hdr ) {
     mn.addClass(mns);
-    document.getElementById("firstPara").style.marginTop="460px";
-    // mn.removeClass('outer');
+    document.getElementById("firstPara").style.marginTop="470px";
   } else {
     mn.removeClass(mns);
     document.getElementById("firstPara").style.marginTop="0px";
-    // mn.addClass('outer');
   }
 });
 
