@@ -1,0 +1,40 @@
+source,target,value
+connectors,homepage,1.45
+arrived at website,connectors,0.56
+connectors,arrived at website,0.98
+search engine hit,homepage,1.07
+arrived at website,homepage,1.47
+features,/tour,0.83
+homepage,/tour,1.03
+contact,homepage,0.55
+homepage,video,4.31
+homepage,login,0.84
+about,contact,1.72
+homepage,sign-up,1.38
+homepage,blog,1.8
+video,homepage,0.85
+features,connectors,4.09
+homepage,contact,2.67
+jobs,homepage,0.61
+blog,homepage,1.82
+about,features,0.62
+features,arrived at website,1.31
+connectors,/tour,0.87
+arrived at website,features,0.58
+homepage,about,6.2
+homepage,arrived at website,2.34
+contact,about,0.6
+homepage,connectors,4.51
+homepage,search engine hit,0.62
+features,about,0.74
+features,homepage,1.97
+sign-up,homepage,0.74
+about,homepage,1.34
+jobs,about,0.75
+connectors,features,2.2
+homepage,signup,1.43
+video,features,0.83
+signup,homepage,0.74
+homepage,jobs,4.18
+about,jobs,0.98
+homepage,features,10.47

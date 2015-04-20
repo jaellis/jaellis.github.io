@@ -1,0 +1,31 @@
+source,target,value
+arrived at website,dashboard,0.59
+vulnerability,homepage,2.08
+homepage,connectors,4.28
+homepage,assets,0.62
+arrived at website,homepage,1.3
+dashboard,arrived at website,0.89
+vulnerability,assets,11.83
+homepage,login,0.66
+viewed asset details,homepage,0.68
+sign-up,connectors,0.54
+connectors,vulnerability,0.78
+homepage,viewed asset details,1.1
+assets,vulnerability,12.98
+threat,homepage,0.74
+homepage,dashboard,4.16
+connectors,homepage,4.05
+dashboard,vulnerability,1.39
+dashboard,homepage,7.73
+dashboard,connectors,2.89
+homepage,vulnerability,2.89
+homepage,arrived at website,1.77
+dashboard,viewed risk meter,0.64
+connectors,dashboard,1.7
+threat,connectors,0.63
+dashboard,threat,1.07
+vulnerability,dashboard,0.91
+homepage,viewed risk meter,1.19
+threat,dashboard,0.79
+connectors,assets,0.52
+viewed risk meter,homepage,0.67
