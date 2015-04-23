@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<!-- SOURCE: http://www.d3noob.org/2013/03/d3js-force-directed-graph-example-basic.html -->
+<!-- Modified by James Ellis -->
+<!-- <script type="text/javascript" src="d3/d3.v3.js"></script> -->
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+<style>
+
+path.link {
+  fill: none;
+  stroke: #666;
+  /*stroke-width: 1.5px;*/
+}
+
+#map1 {
+  height:600px;
+  width: 80%;
+}
+
+#map2
+{
+  height:500px;
+  width:50%;
+  float:right;
+}
+circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  fill: #000;
+  font: 13px sans-serif;
+  pointer-events: none;
+}
+
+</style>
+<body>
+  <div style="float:left;"><!-- <img src="/RiskIO.jpg"> --><h1 style="color:#FF9933;">2014 NFL Playoff Passing</h1><p><p><h2>STATS, LLC</h2><span style="font-size:9;">James Ellis<p>Data Analyst</span></div>
+  <!-- <div id="map1" style="float:left;" onload="graph_nodes('risk_website_directed_graph_streamData_trialUsers.csv');"></div> -->
+
+<script>
+
+// get the data
+function graph_nodes(filename,mapDiv) {
+d3.csv(filename, function(links) {
+
+var nodes = {};
+
+// Compute the distinct nodes from the links.
+links.forEach(function(link) {
+    link.source = nodes[link.source] || 
+        (nodes[link.source] = {name: link.source});
+    link.target = nodes[link.target] || 
+        (nodes[link.target] = {name: link.target});
+    link.value = {value: +link.value};
+    // link.others = {yac: +link.yac, airyards: +link.airyards, comps: +link.comps};
+});
+
+var width = 1500,
+    height = 1000;
+
+var color = d3.scale.linear()
+    .domain([0,100,158.3])
+    .range(["red","yellow","green"]);
+
+var force = d3.layout.force()
+    .nodes(d3.values(nodes))
+    .links(links)
+    .size([width, height])
+    .linkDistance(function (d) { return Math.pow(+d.airyards,2); } )
+    .charge(-1000)
+    .gravity(0.1)
+    .friction(0.3)
+    .on("tick", tick)
+    .start();
+
+var svg = d3.select(mapDiv).append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// build the arrow.
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])
+  .enter().append("svg:marker")
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+// add the links and the arrows
+var path = svg.append("svg:g").selectAll("path")
+    .data(force.links())
+  .enter().append("svg:path")
+    .attr("class", "link")
+    .attr("stroke-width", function(d) { console.log(d);return Math.sqrt(+d.targets); })
+    // .attr("stroke", function(d) { console.log(d); return color(+d.rating); }))
+    .attr("marker-end", "url(#end)");
+    
+
+// define the nodes
+var node = svg.selectAll(".node")
+    .data(force.nodes())
+  .enter().append("g")
+    .attr("class", "node")
+    .call(force.drag);
+
+// add the nodes
+node.append("circle")
+    .data(links)
+    // .attr("r", function(d){ return (10* (+d.rating/158.3)) + 4;})
+    .attr("r", function(d){ return +d.yac; } )
+    .style("fill",function(d){ return color(+d.rating);});
+
+// add the text 
+node.append("text")
+    .attr("x",-20)
+    .attr("y",-15)
+    .style("font-size",14)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.name; });
+
+// add the curvy lines
+function tick() {
+    path.attr("d", function(d) {
+        var dx = d.target.x - d.source.x,
+            dy = d.target.y - d.source.y,
+            dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" + 
+            d.source.x + "," + 
+            d.source.y + "A" + 
+            dr + "," + dr + " 0 0,1 " + 
+            d.target.x + "," + 
+            d.target.y;
+    });
+
+    node
+        .attr("transform", function(d) { 
+            return "translate(" + d.x + "," + d.y + ")"; });
+}
+
+})
+
+};
+window.onload = graph_nodes('\QBtoWR.csv','#map1');
+// window.onload = graph_nodes('site_traffic_percent_edges_Other.csv','#map2');
+</script>
+<div id="README" style="float:right; width:100; padding-right:10%;">
+
+  <h3>How to Read this Graphic</h3>
+  <p>Edge Length:<span style="color:#717171;"> Air Yards (avg)</span>
+    <!-- <p>Edge Width/Darkness:<span style="color:#717171;"> Targets</span> -->
+  <p>Node Size:<span style="color:#717171;"> Yards After the Catch (avg)</span>
+  <p>Color:<span style="color:#717171;"> QB Rating (avg)</span>
+</div>
+<div id="map1" style="float:right;width:100%;"><!-- <h2>Trial Users</h2> --></div>
+<!-- <div id="map2"><h2>Other Users</h2></div> -->
+
+</body>
+</html>
