@@ -56,7 +56,7 @@
     <script type="text/javascript">
       var margin = { top: 50, right: 0, bottom: 100, left: 200 },
           width = 960 - margin.left - margin.right,
-          height = 1830 - margin.top - margin.bottom,
+          height = 1700 - margin.top - margin.bottom,
           gridSize = Math.floor(width / 10),
           legendElementWidth = gridSize,
           buckets = 10,
@@ -103,7 +103,7 @@
           var colorScale = d3.scale.quantile()
               .domain([d3.min(data, function (d) { return d.percentage; }), buckets, d3.max(data, function (d) { return d.percentage; })])
               .range(colors);
-
+console.log(data);
           var svg = d3.select("#chart").append("svg")
               .attr("width", width + margin.left + margin.right)
               .attr("height", height + margin.top + margin.bottom)
@@ -133,8 +133,8 @@
           var heatMap = svg.selectAll(".fieldposition")
               .data(data)
               .enter().append("rect")
-              .attr("x", function(d) { return (players.indexOf(d.player) - 1) * gridSize; })
-              .attr("y", function(d) { return (fieldPositions.indexOf(d.field_pos) - 1)  * gridSize; })
+              .attr("y", function(d) { return (players.indexOf(d.player) - 1) * gridSize; })
+              .attr("x", function(d) { return (fieldPositions.indexOf(d.field_pos) - 1)  * gridSize; })
               .attr("rx", 4)
               .attr("ry", 4)
               .attr("class", "fieldposition bordered")
