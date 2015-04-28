@@ -132,7 +132,7 @@ var tooltipOffset = {x: 5, y: -25};
 //Create a tooltip, hidden at the start
 function showTooltip(d) {
   moveTooltip();
-
+console.log('here');
   tooltip.style("display","block")
       .text(d.value.properties["Story"]);
 }
@@ -150,4 +150,9 @@ function hideTooltip() {
 
     </script>
   </body>
+  <footer>
+  <p>&copy; James Aaron Ellis 2015</p>
+  <p>Hosting by <img src="/GitHub-Mark-32px.png"></p>
+</footer> 
 </html>
+
