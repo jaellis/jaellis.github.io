@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<link type="text/css" rel="stylesheet" href="/github.css" /> 
+</head>
+<style>
+body {
+	font-family: "Lucida Sans Unicode",sans-serif;
+	width:75%;
+	margin-left:10%;
+}
+div {
+	text-indent: 30px;	
+}
+a {
+	color:#246B24;
+}
+/*code {
+	background-color: #C8C8C8;
+	text-indent: 0px;	
+}*/
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+ 
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+#messychart {
+	width:100%;
+	padding:20px;
+}
+
+#RT_tree {
+	width:100%;
+	height:500px;
+}
+</style>
+<body>
+<h1 style="color:#FF9933;"><img src="/RiskIO.jpg">User Research</h1>
+
+<h2>James Ellis</h2>
+
+<h3>Three-Week recap</h3>
+
+<div id="Intro">For three weeks, I have been working to create a clear picture of the users visiting the Risk I/O external site and trial app.  My ultimate goal is to determine which factors of the user experience are the largest predictors of signing on as a paying customer.  This write-up will describe my work with Kissmetrics (KM) data.</div>
+<div id="para2">The first step was to munge the KM data.  The data is stored in JSON format in an AWS S3 bucket.  I wrote a collection of python functions that create a connection to the S3 bucket using the library <a href="http://boto.readthedocs.org/en/latest/index.html" target="_blank">boto</a>.  The scripts then find the most recent JSON bucket (they are numerically, with increasing values) and stream a user-fixed number of JSON files.  Salient features are extracted from individual dictionary entries and use to create a complete list of a users' activities.  I also use a hardcoded time variable to determine when an activity period should be ended and the next started (i.e. 9000s, or 15 min).  <p>The original dictionary entries look like this:<code><pre>
+{"_n":"visited plans & pricing","_p":"f+ga5d+tix2+l9g24uw7rmn8nxc=","_t":1361303547}
+
+{"_n":"arrived at website","_p":"f+ga5d+tix2+l9g24uw7rmn8nxc=","_t":1361303548}
+
+{"viewed url":"https://www.risk.io/plans","referrer":"https://www.risk.io/?utm_source=nmap&utm_medium=sponsorship&utm_content
+=nmap-cats&utm_campaign=homer","_n":"page view","_p":"f+ga5d+tix2+l9g24uw7rmn8nxc=","_t":1361303548}</pre></code>
+<p>This first step of munging creates dictionary entries that are much easier to read and analyze:
+<code>
+<pre>{'all': ['viewed blog homepage',
+          'page view',
+          'visited site',
+          'arrived at website',
+          'search engine hit'],
+ 'first action': 1428422964,
+ 'landing': 'http://blog.risk.io/tag/best-practices-for-technology-symposium/',
+ 'last action': 1428422964,
+ 'penalty box': [],
+ 'repeat flag': False,
+ 'simple paths': {'path length': {'0': 3},
+                   'paths': {'0': [],
+                              '1': ['1428422964ts_viewed blog homepage',
+                                     '1428422964ts_arrived at website',
+                                     '1428422964ts_search engine hit']}},
+ u'total activity period': 0}</pre></code>
+</div>
+<div>The first step in visualizing a user flow is determing, at a gross level, which pages are most highly linked with others through user traffic.  This is an excellent sniff-check for your UX design (e.g. is our envisaged flow actually happening?). <p>To effect this, I determined the existing edges in the dataset.  An edge here willl stand for the path between any two pages on the site or app.  I then calculated the number of transits across a given edge. This created a very crowded, very noisy directed graph.</div>
+<div>Double-, triple- and sometimes quadruple-booking of event tags is to blame for the noise (see the above example with 3 events occuring at the same time). In Kissmetrics, several event tags (e.g. viewed page, arrived at website, viewed homepage) are sometimes tied to the same event (e.g. visiting homepage).  I used regular expressions to cull this large number of event tags down to a manageable, meaningful few.  I then converted this traffic to percentages.  The final product is displayed below. Edge thickness displays the relative traffic over that path (thicker = more traffic) </div><br>
+<!-- <div id="messychart"></div> -->
+<iframe src="http://jaellis.com/directed_graph.html" width="110%" height="700"></iframe>
+<h2>The majority of visitors to the site are making multiple stops through the homepage.</h2>
+<div>The website should function as a funnel, moving prospective clients towards a goal.  Our goal is signing up for a trial, yet arrivals at the signup are only happening via the homepage. The complex web displayed by the trial users on the left is closer to the map we should aim for from our site for visitors (non-trial & non-paying).  Every page should offer enough information and options for navigation that returning to the homepage is not necessary.</div><p><p>
+<div>The regular expression matching I used to trim the number of page landings is captured in the json below.  The key value (e.g. 'assets' is the expression match, and the resulting nested dictionary has the real KM tags that would result from running the reg-ex (e.g. 'asset-bulk-edit-vuln-status').  Numbers are meaningless placeholders.
+<code><pre>{'assets': {'asset-': 1,
+            'asset-add-tag': 1,
+            'asset-bulk-edit-vuln-status': 1,
+            'asset-mark-inactive': 1,
+            'asset-remove-tag': 1,
+            'asset-set-priority': 1,
+            'created asset group': 1,
+            'exported assets': 1,
+            'set asset priority': 1,
+            'synced assets': 1,
+            'viewed asset details': 1,
+            'visited assets tab': 1},
+ 'blog': {'viewed blog homepage': 1,
+          'visited blog post  "what you miss w/ cvss"': 1},
+ 'connectors': {'arrived at connectors page': 1,
+                'arrived at select connectors page (onboarding)': 1,
+                'click connectors button (homepage)': 1,
+                'click sync scanner button (connectors page)': 1,
+                'clicked save and continue button on /signup/connectors': 1,
+                'clicked skip button on /signup/connectors': 1,
+                'created connector': 1,
+                'ran connector': 1,
+                'verified connector': 1,
+                'visited connectors [app]': 1,
+                'visited the signup | connectors page [app]': 1},
+ 'dashboard': {'filtered dashboard by tag': 1,
+               'viewed benchmark dashboard': 1,
+               'viewed compare dashboard': 1,
+               'viewed executive dashboard': 1,
+               'visited analyst dashboard': 1,
+               'visited populated dashboard': 1,
+               'visited risk meter dashboard': 1,
+               'visited the dashboard [app]': 1},
+ 'features': {'arrived at features page': 1,
+              'click sync scanner button (features page)': 1},
+ 'homepage': {'clicked features button (homepage)': 1,
+              'clicked tour button (homepage)': 1,
+              'played homepage ptc video': 1,
+              'played homepage sendgrid video': 1,
+              'viewed homepage': 1},
+ 'privacy': {'/security': 1, 'visited the privacy policy page [website]': 1},
+ 'risk_meter': {'arrived at risk meter faq': 1,
+                'created new tech risk meter': 1,
+                'created risk meter': 1,
+                'viewed risk meter': 1},
+ 'scanner': {'arrived on scanners page': 1,
+             'click sync scanner button (features page)': 1,
+             'click sync scanner button (tour page)': 1,
+             'clicked skip button on /signup/scanners ': 1,
+             'clicked sync scanner data': 1},
+ 'sign': 'signed up',
+ 'threat': {'clicked through threat': 1,
+            'closed threat drawer': 1,
+            'opened threat drawer': 1,
+            'visited the threat intelligence page [website]': 1,
+            'visited the threat intelligence research paper page [website]': 1},
+ 'video': {'arrived at video': 1,
+           'played home page video': 1,
+           'played signup page video': 1},
+ 'vuln': {'exported vulnerabilities': 1,
+          'synced vulnerabilities': 1,
+          'viewed vulnerability details': 1,
+          'visited vulnerabilities tab': 1}}</pre></code><p>This dictionary captures >50% of all actions triggered from Kissmetrics. I will be going back over this flattening of the data to ensure we are not missing valuable events.</div>
+<div>My next step was to create data structures for individual paths, and aggregate these to visualize the actual flow of a user's interaction. I again wrote scripts in Python for this purpose (see Code Appendix at bottom).  From these paths, I was able to recursively dive from root to leaf, counting the number of users who followed any given path up to a user-specified depth (e.g. 5 pages).  This is most functionally visualized in a sunburst image, as seen below.</div><br>
+<iframe src="http://jaellis.com/RiskSequences.html" height="700" width="100%"></iframe>
+<br><br><div>The Next Step: <p>Clustering analysis on user types. I plan to use the user-level analysis I've done to group our users.  It is my hope that these groups will elucidate future site design.</div><br><br>
+<div id="RT_tree"><div>
+<code style ="float:right; width:30%;">
+<pre></pre>
+</code>
+
+<h1>Code Appendix</h1>
+	In a python environment, the following commands will create all of the csv and json files necessary for the visualizations in this article:
+<code><pre>
+import Munge_v2_140418 as M
+<p>users=M.get_stream()
+<p>import singleTS_procUsers as S
+<p>[final,usersfinal,otherfinal]=S.singleTS_perEvent(users)
+<p>edges=S.edge_prcntg(final)
+<p>paths=S.get_pathPositions(final,edges)
+<p>userPaths=S.get_pathPositions(final,userEdges)
+<p>otherPaths=S.get_pathPositions(final,otherEdges)
+<p>S.prettyPaths(userPaths,'prettyTrialPaths.csv')
+<p>S.prettyPaths(otherPaths,'prettyOtherPaths.csv')<p>
+</pre>
+</code>
+
+<h3>singleTS_procUsers.py</h3>
+<code><pre>
+
+import json, csv, re
+from numpy import random as rand
+
+def prettyPaths(paths,outputFilename):
+	
+	'''	Takes the output of get_pathPositions as returns a single, ordered list
+		for each user
+	'''	
+
+	def downBubble(thisPathLoc,pathString,csvWriterObj,outputList):
+
+		'''	Appends the current page locations and dips one level down
+		'''
+
+		#	Add name to pathString
+		#	Need to create a new string or the pointers for multiple recursion 
+		#	objects will be the same, and madness will ensue
+		pathOut = str(pathString)
+
+		#	Control for the hypehnin sign-up, and long page names
+
+		switchDict = {
+		"sign-up": "signup"
+		,"viewed risk meter": "risk meter"
+		,"viewed asset details": "asset details"
+		,"search engine hit": "srch eng"
+		,"arrived at website": "homepage"
+		}
+
+		if thisPathLoc['name'] in switchDict:
+			name = switchDict[thisPathLoc['name']]
+		else:
+			name = thisPathLoc['name']
+
+		#	Don't add a needless hyphen			
+		if pathOut == '':
+			pathOut = name
+
+		else:
+			pathOut = pathOut + "-" + name	
+
+		#	If users have ended here, there is a number value representing
+		#	those users -- print it		
+		if 'num' in thisPathLoc:
+
+			#	Create an output line
+			line = []						
+			line.append(pathOut+"-end")
+			line.append(thisPathLoc['num'])
+			# 	Print to csvObj file
+			# csvWriterObj.writerow(line)
+			outputList.append(line)
+			print "end @ %s" % name
+			
+		#	If there are no children, end recursion (BASE CASE)
+		if not thisPathLoc['children']:
+			return outputList
+
+		#	If there are child nodes, continue recursion
+		else:
+
+			for c in thisPathLoc['children']:
+
+				newString = str(pathOut)
+				#	Check for repeats
+				if name != newString.split('-')[-1] != 'up': 
+					newString = newString + "-" + name
+				
+				return downBubble(c,newString,csvWriterObj,outputList)
+
+
+	#	Run main code, invoke recursion
+	with open(outputFilename,'w') as a:
+		
+		csvWriterObj = csv.writer(a)
+		
+		for p in paths['children']:
+			outputList =[]
+			newPath = str()
+			outputList = downBubble(p,newPath,csvWriterObj,outputList)
+			for outLine in range(len(outputList)-1,0,-1):
+				csvWriterObj.writerow(outputList[outLine])
+
+	# print "\n\nFound %d leaves\n" % endCount
+
+
+def edge_prcntg(clean_SingleTS_data):
+
+	'''	Takes the output of singleTS_perEvent and calculates the percentage for each path edge
+
+	'''
+
+	simple_edges = dict()
+	finalEdges = dict()
+	totalEdges = 0
+	##	Construct paths for d3	
+	for uid in clean_SingleTS_data:
+		for numpath in clean_SingleTS_data[uid]['paths']:
+			count=0	
+			for node in clean_SingleTS_data[uid]['paths'][numpath][1:]:			
+				if clean_SingleTS_data[uid]['paths'][numpath][count] not in node:
+					if clean_SingleTS_data[uid]['paths'][numpath][count]+'_to_'+node not in simple_edges:
+						simple_edges[clean_SingleTS_data[uid]['paths'][numpath][count]+'_to_'+node] = 1
+						totalEdges += 1
+
+					else:
+						simple_edges[clean_SingleTS_data[uid]['paths'][numpath][count]+'_to_'+node] += 1
+						totalEdges += 1
+					count+=1
+
+	#	Calc percentages
+	for ii in simple_edges:
+		simple_edges[ii] = round(100*float(simple_edges[ii])/totalEdges,2)
+
+	for ff in simple_edges:
+		if simple_edges[ff]>.5:
+			finalEdges[ff] = simple_edges[ff]
+
+	if raw_input('Do you want to save the trimmed edges CSV?\n\n (y/n) >>') in ['Yes','y','Y','YES','yes']:
+		filename = raw_input('What filename should we use?\n\n>> ')
+		createDirectedGraphCSV(finalEdges,filename)
+
+	return finalEdges
+
+
+def get_pathPositions(clean_SingleTS_data,edges):
+
+	'''	Aggregates the page/location name of the user in its relative position 
+	'''
+
+
+	def nest(nestedDict,thisPath,lastLoc,nodeDepth,depthLimit):
+		
+		'''	Nest the current page location under the last location
+
+			Each Node:
+				name
+				children
+		'''
+
+		###	Base conditions (are we at a leaf?) #####################
+		#	A) Is the path empty, or B) have we reached max recursion depth?
+
+		if not thisPath or depthLimit == nodeDepth:			
+			#	Create number key is there is none for this leaf
+			if 'num' not in nestedDict:		
+				nestedDict['num'] = 0
+
+			nestedDict['num'] += 1
+
+			return nestedDict
+
+		###	OK, then we make with the nesting #####################
+		else:
+
+			#	Get all children
+			children = []
+			if len(nestedDict['children']) == 0:
+				children=[]
+
+			else:
+				for ii in range(len(nestedDict['children'])):
+					children.append(nestedDict['children'][ii]['name'])
+
+
+			thisNode = thisPath[0]
+		
+			#	If the same node, delete node from path(done once at the end), 
+			#	and do NOT increase node depth reached 
+			
+			#	If this is a new child, create new nested dict, and increase node depth reached
+			if thisNode not in children:
+				position = len(children)
+				nestedDict['children'].append({'name': thisNode, 'children':[]})
+				nodeDepth += 1
+
+			else:
+				position = children.index(thisNode)
+
+			###	All nesting: #######
+
+			#	Set this location as the "last", and run recursion
+
+			del(thisPath[thisPath.index(thisNode)])
+
+			if lastLoc is not thisNode:
+				lastLoc = thisNode
+			
+			
+			nest(nestedDict['children'][position],thisPath,lastLoc,nodeDepth,depthLimit)
+
+		return nestedDict
+
+
+
+	pathPositions = {'name': 'root', 'children': []}
+
+	#	Limit length of path
+	pathMaxLen = 5
+
+	sigEdges = getSigEdges(edges)
+
+	# 	Grab first N path positions THAT ARE UNIQUE (N = pathMaxLen)
+	for uid in clean_SingleTS_data:
+
+		for p in clean_SingleTS_data[uid]['paths']:
+
+			rawPath = clean_SingleTS_data[uid]['paths'][p]
+
+			#	Disqualify visitors who only saw a single page
+			if len(rawPath) > 1:
+
+				#	Trim Path to only significant edges
+				trimPath = trimToSigEdges(rawPath,sigEdges)
+
+				#	Only allow one instance of a page per path
+				finPath = singlePageInstance_PerPath(trimPath)
+
+				lastLocation = []
+
+				#	Run recursion
+				pathPositions = nest(pathPositions,finPath,lastLocation,0,pathMaxLen)
+
+	return pathPositions
+				
+
+def getSigEdges(edges):
+	
+	'''	Used to populate sigEdges in trimToSigEdges
+	'''
+
+	sigEdges = {}
+
+	for ii in edges:
+		home = ii.split('_to_')[0]
+		target = ii.split('_to_')[1]
+		if home not in sigEdges:
+			sigEdges[home] = {target:1}
+		else:
+			sigEdges[home][target] = 1
+
+	return sigEdges
+
+def trimToSigEdges(path,sigEdges):
+
+	'''	Take the output of get_pathPositions and only keep those edges which made
+		the cut in edge_prcntg 
+	'''
+
+	trimPath = []
+	for ii in range(len(path[1:])):
+		if path[ii-1] in sigEdges:
+			if path[ii] in sigEdges[path[ii-1]]:
+				if not trimPath:
+					trimPath.append(path[ii-1])
+				elif trimPath[len(trimPath)-1] == path[ii-1]:					
+					trimPath.append(path[ii])
+				else:
+					trimPath.append(path[ii-1])
+					trimPath.append(path[ii])
+
+	return trimPath
+
+
+def singlePageInstance_PerPath(path):
+
+	'''	Only allow a single instance of any one page per path
+	'''
+
+	dummyDict = dict()
+	uniques = list(set(path))
+	uniquesPath = []
+
+	for ii in uniques:
+		dummyDict[path.index(ii)] = ii
+
+	orderedDummy = dummyDict.keys()
+	orderedDummy.sort()
+	for kk in orderedDummy:
+		uniquesPath.append(dummyDict[kk])
+
+	return uniquesPath
+
+def pruneTree(paths):
+
+	'''	Prune the tree to a given minimum value at each leaf
+	'''
+
+
+	def prune(branch,minVal):
+
+		if 'num' in branch:
+			if branch['num'] < minVal:
+				return True
+		else:
+			for ii in branch:
+				prune(branch[ii])
+
+		return False
+	
+	minVal = 10
+
+	# for pp in paths:
+
+
+def createDirectedGraphCSV(edges,filename):
+
+	## Write CSV
+	with open("/Users/mozilla/Desktop/RiskIO/"+filename+".csv","w") as csvfile:	
+		cc = csv.writer(csvfile)
+		cc.writerow(['source','target','value'])
+		for tt in edges:
+			splitline = tt.split('_to_')
+			line=[splitline[0],splitline[1],edges[tt]]
+			cc.writerow(line)
+
+
+
+def get_landing_pages(origData,trimData):
+
+	landing = dict()
+	firstPage = dict()
+	for ii in origData:
+
+		if origData[ii]['landing'] not in landing:
+			landing[origData[ii]['landing']] = 0
+
+		landing[origData[ii]['landing']] += 1
+
+	for ll in trimData:
+
+		if trimData[ll]['paths'][0][0] not in firstPage:
+			firstPage[trimData[ll]['paths'][0][0]] = 0
+
+		firstPage[trimData[ll]['paths'][0][0]] += 1
+
+	return landing,firstPage
+
+##########################################
+# 	Below this line copied from usersToFlareJson.py
+##########################################
+
+def singleTS_perEvent(data):
+
+	'''	Takes a raw "users" output from Munge<<>> and returns path lists for
+		user ID that has a single event for each timestamp and is split by maxLag
+
+		INPUT
+			users		dict from Munge150406
+
+		OUTPUT
+			outputDict	same user IDs as users dict input but with single ts entries
+						for events within paths; paths split by a maxLag time var (hardcoded)
+	'''
+
+	outputDict = dict()
+
+	for ii in data:
+		pathDict = dict()
+		outputDict[ii]={'paths':{0:[]}}
+
+		for path in data[ii]['simple paths']['paths']:
+			thisPath = data[ii]['simple paths']['paths'][path]
+			if thisPath:
+				for rawEvent in thisPath:
+					event = rawEvent[len(re.search(r'\d+ts_',rawEvent).group()):]
+					ts = int(re.search(r'\d+',rawEvent).group())
+					if ts not in pathDict:
+						pathDict[ts] = [event]
+					else:
+						pathDict[ts].append(event)
+		
+		[sortedTrash,timestamps,flag] = trashSort(pathDict)
+		# if flag:
+			# print ii
+		
+		count = 0
+		for tr in sortedTrash:
+			outputDict[ii]['paths'][count] = sortedTrash[tr]
+			count += 1
+		outputDict[ii]['timestamps'] = timestamps 
+
+	########################## Added 150420 to compare trial and other users
+	real_users={}
+	for ii in data:
+		if not re.search(r'=',ii):
+			real_users[ii]=1
+
+	realUsersData = {}
+	otherUsersData = {}
+	for ii in data:
+
+		if ii in real_users:
+
+			realUsersData[ii] = outputDict[ii]
+
+			if outputDict[ii]['timestamps']:
+				realUsersData[ii]['total activity period'] = outputDict[ii]['timestamps'][-1] -  outputDict[ii]['timestamps'][0]
+
+			else:
+				realUsersData[ii]['total activity period'] = None
+
+		else:
+			otherUsersData[ii] = outputDict[ii]
+
+			if outputDict[ii]['timestamps']:
+				otherUsersData[ii]['total activity period'] = outputDict[ii]['timestamps'][-1] -  outputDict[ii]['timestamps'][0]
+
+			else:
+				otherUsersData[ii]['total activity period'] = None
+	##########################
+
+
+	return outputDict,realUsersData,otherUsersData
+
+
+
+def simpleMunge_pageName(destination,mapNodes):
+
+	'''	Get rid of the annoying-ass "arrived at website" tags that follow EVERYTHING! AGRHA!
+		Also, simplify arrived at >><< tags to the page name only
+
+		Use within trashSort (func)
+	'''
+
+	simpleOut = []
+
+	if destination not in 'arrived at website':
+
+		if re.search('arrived at ',destination):
+
+			if not re.search(' website',destination):
+				simpleOut = str(destination.split('arrived at ')[1].split(' page')[0])
+
+		for mN in mapNodes:
+			if re.search(mN,destination):
+				simpleOut = mapNodes[mN]
+
+	return simpleOut
+
+
+
+def trashSort(pathDictionary):
+
+	'''	Use within singleTS_perEvent (func) to sort through an entire users' path list
+
+		INPUT
+			pathDictionary		dict from singleTS_perEvent
+
+		OUTPUT
+			final				all paths (cleaned) for a single user
+	'''
+	# Hard Coded max-time between activities to define a path (in seconds)
+	maxLag = 1200 # 300 = 5 min
+
+	final = {0:[]}
+	timestamps = []
+
+	for ii in pathDictionary:
+		timestamps.append(ii)
+
+	timestamps.sort() # Get sorted time list
+
+	#	ThunderDome for multiple events
+	count = 0
+	flag=False
+	for ts in timestamps:
+		if len(pathDictionary[ts]) == 1:
+			output = simpleMunge_pageName(pathDictionary[ts][0],mapNodes)
+		else:
+			finalEvents,flag = disentangle(pathDictionary[ts],mapNodes)
+
+			if finalEvents:				
+				choice = rand.random_integers(0,len(finalEvents)-1)
+				output = str(finalEvents[choice])
+				# print "choices:",finalEvents,"\nAnd selected %s\n" % output
+
+			else:				
+				choice = rand.random_integers(0,len(pathDictionary[ts])-1)
+				output = str(pathDictionary[ts][choice])
+
+		#	Split a single path into many using maxLag
+		ind = timestamps.index(ts)
+		if ind > 0:
+			if timestamps[ind-1] + maxLag < ts:
+				count += 1
+				final[count]=[]
+		if output:
+			final[count].append(output)
+	# if flag:
+		# print 'finalEvents is %d entries long, split into %d paths' % (len(finalEvents),len(final))
+
+	return final,timestamps,flag
+
+
+
+def disentangle(troubleList,mapNodes):
+
+	'''	Use inside of trashSort (func) to determine a single event 
+		when there are conflicting timestamps
+	'''
+	flag=False
+	finalEvents=[]
+	for tt in troubleList:
+		if tt not in 'arrived at website':
+
+			if re.search('arrived at ',tt):
+
+				#	Get these garbage "arrived at website" tags OUTTA HERE!
+				if not re.search(' website',tt):
+					finalEvents.append(str(tt.split('arrived at ')[1].split(' page')[0]))
+
+			for ll in mapNodes:
+				if re.search(ll,tt):
+					finalEvents.append(mapNodes[ll])
+	if len(finalEvents) > 1:
+		flag=True
+
+	return finalEvents,flag
+
+
+
+mapNodes = {'assets': 'assets',
+ 'blog': 'blog',
+ 'connectors': 'connectors',
+ 'dashboard': 'dashboard',
+ 'features': 'features',
+ 'homepage': 'homepage',
+ 'privacy': 'privacy',
+ 'risk_meter': 'risk_meter',
+ 'scanner': 'scanner',
+ 'sign': 'sign-up',
+ 'threat': 'threat',
+ 'video': 'video',
+ 'vuln': 'vulnerability'}
+
+
+</pre></code>
+<h3>Munge_v2_140418.py</h3>
+<code><pre>
+import csv, json, re, ast
+from datetime import datetime as dt
+from Queue import Queue as q
+from boto.s3.connection import S3Connection
+
+
+def find_most_recent_JSON(numJSON,bucket):
+	'''Use a Queue.Queue object to get the **MAXLENGTH** most recent json entries
+
+	Toggle the "known_latest" var to an empty list if the most recent revision json 
+	is not known, otherwise insert the number
+	'''
+	latest = 1
+
+	known_latest = []
+
+	if not known_latest:
+		print "\nFinding most recent json uploaded..."
+		for ii in bucket.list():
+			num = re.search(r'\d+',str(ii))
+			if num:
+				if int(num.group()) > latest:
+					latest = int(num.group())
+		print"...done."
+	else:
+		latest = known_latest
+
+	dummyDict = {}
+	for ii in range(latest-numJSON,latest):
+		dummyDict[ii] = 1
+
+	print "Loading %d most recent JSON keys..." % numJSON
+	keyList = []
+	for ii in bucket.list():
+		num = re.search(r'\d+',str(ii))
+		if num:
+			if int(num.group()) in dummyDict:
+				keyList.append(ii)
+
+	print "...done."
+
+	return keyList
+
+def get_stream():
+	'''
+	'''
+	##	Hardcoded Input
+	maxlength = 2000
+
+	thresh = 10 ## Threshold for minimum events
+	##
+	conn = S3Connection('AKIAJ34BSOQJB4FQCR7A', 'M5rMgnFA9MFcLD21wtrjHP+40zAYD74ZxQ2hWJ1L ')
+	conn = S3Connection()
+	bucket=conn.lookup('riskio-data-science',validate=True)
+	allkeys=bucket.get_all_keys()
+
+	print "connection made:\n"
+	print conn
+	print bucket,"\n"
+
+	keyList = find_most_recent_JSON(maxlength,bucket)
+
+	##	Stop? -1 if not
+	stop = 100
+
+	##
+	edges = dict()
+	trimmed_edges = dict()
+	all_edges = dict()
+	simple_edges = dict()
+	count=0
+
+	users=dict()
+	paths=dict()
+	pages=dict()
+	simplified_paths=dict()
+
+	for key in keyList:
+
+		if re.search(r'json',str(key)):
+			rawOutput = key.get_contents_as_string().split('\n')
+			data = dict()
+			count=0
+			for line in rawOutput:
+				if line != '':
+					data[count]=ast.literal_eval(line)
+					count+=1
+			
+			# print "parsing stream"
+			[users,paths,simplified_paths] = parseStreamTS(users,simplified_paths,paths,pages,data)
+
+			# print "getting edges"
+			[edges,trimmed_edges,all_edges] = getEdges(edges,trimmed_edges,all_edges,paths)
+			
+			# print "getting simple edges"
+			simple_edges = get_SimpleEdges(simple_edges,simplified_paths)
+
+		print "done with %s" % str(key)
+
+	[start_time,end_time]=getTimePeriod(users)
+
+	print "this data starts on %s and ends on %s" % (start_time,end_time)
+
+	## Write CSV
+	with open("/Users/mozilla/Desktop/RiskIO/risk_website_directed_graph_streamData.csv","w") as csvfile:	
+		cc = csv.writer(csvfile)
+		cc.writerow(['source','target','value'])
+		for tt in trimmed_edges:
+			splitline = tt.split('_to_')
+			line=[splitline[0],splitline[1],trimmed_edges[tt]]
+			cc.writerow(line)
+
+	with open("/Users/mozilla/Desktop/RiskIO/risk_website_directed_graph_streamData_ALL.csv","w") as SecondCSVfile:
+		cc2 = csv.writer(SecondCSVfile)
+		cc2.writerow(['source','target','value'])
+		for bb in all_edges:
+			splitline2 = bb.split('_to_')
+			line=[splitline2[0],splitline2[1],all_edges[bb]]	
+			cc2.writerow(line)
+
+	with open("/Users/mozilla/Desktop/RiskIO/risk_website_directed_graph_streamData_Simple.csv","w") as ThirdCSVfile:
+		cc3 = csv.writer(ThirdCSVfile)
+		cc3.writerow(['source','target','value'])
+		for bb in simple_edges:
+			splitline3 = bb.split('_to_')
+			line=[splitline3[0],splitline3[1],simple_edges[bb]]	
+			cc3.writerow(line)
+
+	for ii in users:
+		users[ii]['simple paths'] = simplified_paths[ii]
+
+	compareRealUsersToOthers(users,simplified_paths,thresh)
+
+	return users
+
+
+def compareRealUsersToOthers(users,paths,thresh):
+	'''create flows for real users
+	'''
+
+	real_users={}
+	for ii in users:
+		if not re.search(r'=',ii):
+			real_users[ii]=1
+
+	realUsersData = {}
+	otherUsersData = {}
+	for ii in users:
+		if ii in real_users:
+			realUsersData[ii] = paths[ii]
+		else:
+			otherUsersData[ii] = paths[ii]
+
+	realUsersProc = get_SimpleEdges({},realUsersData)
+	otherUsersProc = get_SimpleEdges({},otherUsersData)
+
+	csvnames=['trialUsers','otherUsers']
+	for ii in range(2):
+		with open("/Users/mozilla/Desktop/RiskIO/risk_website_directed_graph_streamData_"+csvnames[ii]+"_v2.csv","w") as csvfile:	
+			cc = csv.writer(csvfile)
+			cc.writerow(['source','target','value'])
+			if ii == 1:
+				dumData = realUsersProc
+			else:
+				dumData = otherUsersProc
+			for tt in dumData:
+				if dumData[tt] > thresh:
+					splitline = tt.split('_to_')
+					line=[splitline[0],splitline[1],dumData[tt]]
+					cc.writerow(line)
+
+def getTimePeriod(users):
+	first_acts=[]
+	last_acts=[]
+	for ii in users:
+		first_acts.append(users[ii]['first action'])
+		last_acts.append(users[ii]['last action'])
+
+	first_acts.sort()
+	last_acts.sort()
+
+	start_time=dt.fromtimestamp(first_acts[0]).strftime('%Y-%m-%d')
+	end_time=dt.fromtimestamp(last_acts[-1]).strftime('%Y-%m-%d')
+
+	return start_time,end_time
+
+
+def parseStream(users,simplified_paths,paths,pages,data):
+
+	'''Parse Stream using a defined activity period to break sessions 
+	(this can be done more adaptively)	
+	'''
+
+	##	Define Max lag between sessions (in seconds)
+	max_lag = 300
+
+	for line in data:
+		page=[]
+		newline = data[line]
+
+		## Populate all user-keyed dictionaries
+		if uid not in users:
+			paths[uid]={'paths':{0:[]},'path length':{0:0}}
+			simplified_paths[uid]={'paths':{0:[]},'path length':{0:0}}
+			users[uid]={'landing':None,'all':[],'first action':newline["_t"],'last action':newline["_t"]}
+			pages[uid]={'pages':{0:[]}}
+
+		##	Break session
+		if users[uid]['last action']>newline["_t"]+max_lag:
+			paths[uid]['paths'][len(paths[uid]['paths'])]=[]
+			simplified_paths[uid]['paths'][len(simplified_paths[uid]['paths'])]=[]
+			paths[uid]['path length'][len(paths[uid]['path length'])]=0
+			pages[uid]['pages'][len(pages[uid]['pages'])] = []
+
+		elif users[uid]['first action']>newline["_t"]:
+			users[uid]['first action']=newline["_t"]
+			paths[uid]['paths'][len(paths[uid]['paths'])]=[]
+			simplified_paths[uid]['paths'][len(simplified_paths[uid]['paths'])]=[]
+			paths[uid]['path length'][len(paths[uid]['path length'])]=0
+			pages[uid]['pages'][len(pages[uid]['pages'])] = []
+
+
+		if "url" in newline:
+			users[uid]['landing']=newline["url"]
+			page = basicNLP(newline["url"])
+			pages[uid]['pages'][len(pages[uid]['pages'])-1].append(page)					
+
+		elif "viewed url" in newline:
+			users[uid]['landing']=newline["viewed url"]
+			page = basicNLP(newline["viewed url"])
+			pages[uid]['pages'][len(pages[uid]['pages'])-1].append(page)					
+
+		if "_n" in newline:
+			users[uid]['all'].append(newline["_n"])
+			if newline["_n"] not in ['page view','visited site']:
+				paths[uid]['paths'][len(paths[uid]['paths'])-1].append(basicNLP(newline["_n"]))
+				simplified_paths[uid]['paths'][len(simplified_paths[uid]['paths'])-1].append(newline["_n"])
+				paths[uid]['path length'][len(paths[uid]['path length'])-1] += 1
+				simplified_paths[uid]['path length'][len(simplified_paths[uid]['path length'])-1] += 1
+			elif page and newline["_n"] in ['page view','visited site']:
+
+				paths[uid]['paths'][len(paths[uid]['paths'])-1].append(page)
+				paths[uid]['path length'][len(paths[uid]['path length'])-1] += 1
+
+			else:
+				print 'problem'
+		
+	for  ii in users:
+		users[ii]['total activity period'] = users[ii]['last action'] - users[ii]['first action']
+
+	return users,paths,simplified_paths
+
+
+def tiebreaker(competitors):
+	'''
+	Take events that have matching timestamps and choose only one
+	'''
+
+	losers = ['website','homepage','campaign']
+	winners = {'dashboard':'viewed dashboard','synced':'connectors'}
+
+	competitors=list(set(competitors))
+
+	if len(competitors) > 1:
+		for ww in winners:
+			if ww in competitors:
+				return winners[ww]
+
+		for ii in losers:
+			if ii in competitors:
+				competitors.remove(ii)
+				tiebreaker(competitors)
+	else:
+		return competitors
+
+
+def parseStreamTS(users,simplified_paths,paths,pages,data):
+	'''Parse Stream using a defined activity period to break sessions 
+	(this can be done more adaptively)
+
+	Also get timestamps attached PRECEDING events with << timestamp + "ts_" + event >>(use reg-ex to eliminate later)
+
+	Penalty_box is used to break temporal ties between events
+	'''
+
+	##	Define Max lag between sessions (in seconds)
+	max_lag = 300
+
+	for line in data:
+		page=[]
+		newline = data[line]
+		if "_p" in newline:
+			uid = newline["_p"]
+			## Populate all user-keyed dictionaries
+			if uid not in users:
+				paths[uid]={'paths':{0:[]},'path length':{0:0}}
+				simplified_paths[uid]={'paths':{0:[]},'path length':{0:0}}
+				users[uid]={'landing':None,'all':[],'first action':newline["_t"],'last action':[],
+				'repeat flag':False,'penalty box':[]}
+				pages[uid]={'pages':{0:[]}}
+
+			##	Break session
+			if users[uid]['last action']>newline["_t"]+max_lag:
+				paths[uid]['paths'][len(paths[uid]['paths'])]=[]
+				simplified_paths[uid]['paths'][len(simplified_paths[uid]['paths'])]=[]
+				paths[uid]['path length'][len(paths[uid]['path length'])]=0
+				pages[uid]['pages'][len(pages[uid]['pages'])] = []
+
+			elif users[uid]['first action']>newline["_t"]:
+				users[uid]['first action']=newline["_t"]
+				paths[uid]['paths'][len(paths[uid]['paths'])]=[]
+				simplified_paths[uid]['paths'][len(simplified_paths[uid]['paths'])]=[]
+				paths[uid]['path length'][len(paths[uid]['path length'])]=0
+
+			##	Find repeat timestamps
+			if users[uid]['last action'] == newline["_t"] != users[uid]['first action']:
+				users[uid]['repeat flag']=True
+				users[uid]['path index'] = len(simplified_paths[uid]['paths']) - 1 ## could this be broken by not keeping this index per uid?
+				pathindex = users[uid]['path index']
+
+			if "url" in newline:
+				users[uid]['landing']=newline["url"]
+				page = basicNLP(newline["url"])
+				pages[uid]['pages'][len(pages[uid]['pages'])-1].append(page)					
+
+			elif "viewed url" in newline:
+				users[uid]['landing']=newline["viewed url"]
+				page = basicNLP(newline["viewed url"])
+				pages[uid]['pages'][len(pages[uid]['pages'])-1].append(page)					
+
+			if "_n" in newline:
+				users[uid]['all'].append(newline["_n"])
+				if newline["_n"] not in ['page view','visited site']:
+					paths[uid]['paths'][len(paths[uid]['paths'])-1].append(basicNLP(newline["_n"]))
+					simplified_paths[uid]['paths'][len(simplified_paths[uid]['paths'])-1].append(str(newline["_t"])+"ts_"+newline["_n"])
+					paths[uid]['path length'][len(paths[uid]['path length'])-1] += 1
+					simplified_paths[uid]['path length'][len(simplified_paths[uid]['path length'])-1] += 1
+
+				elif page and newline["_n"] in ['page view','visited site']:
+					paths[uid]['paths'][len(paths[uid]['paths'])-1].append(page)
+					paths[uid]['path length'][len(paths[uid]['path length'])-1] += 1
+			users[uid]['last action']=newline["_t"]
+	for  ii in users:
+		users[ii]['total activity period'] = users[ii]['last action'] - users[ii]['first action']
+
+	return users,paths,simplified_paths
+
+
+def get_SimpleEdges(simple_edges,simplified_paths):
+	'''Accounts for << "ts_" and timestamp >> in the simplified_paths dict
+	'''
+	##	Construct paths for d3	
+	for uid in simplified_paths:
+
+		for numpath in simplified_paths[uid]['paths']:
+			count=0	
+
+			for node in simplified_paths[uid]['paths'][numpath][1:-1]:
+				node = node[len(re.search(r'\d+ts_',node).group()):]
+				
+				if simplified_paths[uid]['paths'][numpath][count] in node:
+					pass
+				elif simplified_paths[uid]['paths'][numpath][count]+'_to_'+node not in simple_edges:
+					simple_edges[simplified_paths[uid]['paths'][numpath][count]+'_to_'+node] = 1
+
+				else:
+					simple_edges[simplified_paths[uid]['paths'][numpath][count]+'_to_'+node] += 1
+				count+=1
+
+	return simple_edges
+
+
+
+def getEdges(edges,trimmed_edges,all_edges,paths):
+	##	Construct paths for d3	
+	for uid in paths:
+		for numpath in paths[uid]['paths']:
+			count=0	
+			for node in paths[uid]['paths'][numpath][1:-1]:			
+				if paths[uid]['paths'][numpath][count] in node:
+					pass
+				elif paths[uid]['paths'][numpath][count]+'_to_'+node not in edges:
+					edges[paths[uid]['paths'][numpath][count]+'_to_'+node] = 1
+					all_edges[paths[uid]['paths'][numpath][count]+'_to_'+node] = 1
+				else:
+					edges[paths[uid]['paths'][numpath][count]+'_to_'+node]+=1
+					# all_edges[paths[uid]['paths'][numpath][count]+'_to_'+node] = 1 ## This line makes no sense for a dict
+				count+=1
+	
+	for ii in edges:
+		if edges[ii] > 1:
+			trimmed_edges[ii]=edges[ii]		
+	
+	return edges,trimmed_edges,all_edges
+
+
+
+
+def basicNLP(sitename):
+	'''Takes a page name and bins it into a category using hard-coded words
+	'''
+	categories={'connectors':'Connectors','website':'risk.io','risk.io':'risk.io',
+	'signup':'Sign-Up','features':'Features','solutions':'Solutions','dashboard':'Dashboard',
+	'plans':'Plans and Pricing','blog':'Blog','faq':'FAQ','assets':'Assets',
+	'ran connector':'Ran a Connector','campaign':'Campaign','search engine':'risk.io'}
+
+	if re.search(r'risk.io',sitename):
+		if re.search(r'/?',sitename):
+			return 'risk.io'
+		else:
+			return re.search(r'io/.+',sitename).group()[0].split('/')[1]
+
+	for ii in categories:
+		if re.search(ii,sitename):
+			return categories[ii]
+
+	return sitename
+
+
+def parse_stream_MultPaths():
+	'''Parse Stream using a defined activity period to break sessions 
+	(this can be done more adaptively)
+	'''
+
+	##	Define Max lag between sessions (in seconds)
+	max_lag = 300
+
+	users=dict()
+	paths=dict()
+	pages=dict()
+
+	with open('attempt1_AWS_S3_Risk-Data-Science.json','r') as jj:
+		for line in jj:
+			page=[]
+			newline = ast.literal_eval(line)
+			if "_p" in newline:
+				uid = newline["_p"]
+				## Populate all user-keyed dictionaries
+				if uid not in users:
+					users[uid]={'landing':None,'all':[],'first action':newline["_t"],'last action':newline["_t"]}
+					paths[uid]={'paths':{0:[]},'path length':{0:0}}
+					pages[uid]={'pages':{0:[]}}
+
+				##	Break session
+				if users[uid]['last action']>newline["_t"]+max_lag:
+					paths[uid]['paths'][len(paths[uid]['paths'])]=[]
+					paths[uid]['path length'][len(paths[uid]['path length'])]=0
+					pages[uid]['pages'][len(pages[uid]['pages'])] = []
+
+
+				if "url" in newline:
+					users[uid]['landing']=newline["url"]
+					page = basicNLP(newline["url"])
+					pages[uid]['pages'][len(pages[uid]['pages'])-1].append(page)					
+
+				elif "viewed url" in newline:
+					users[uid]['landing']=newline["viewed url"]
+					page = basicNLP(newline["viewed url"])
+					pages[uid]['pages'][len(pages[uid]['pages'])-1].append(page)					
+
+				if "_n" in newline:
+					users[uid]['all'].append(newline["_n"])
+					if newline["_n"] not in ['page view','visited site']:
+						paths[uid]['paths'][len(paths[uid]['paths'])-1].append(basicNLP(newline["_n"]))
+						paths[uid]['path length'][len(paths[uid]['path length'])-1] += 1
+					elif page and newline["_n"] in ['page view','visited site']:
+						paths[uid]['paths'][len(paths[uid]['paths'])-1].append(page)
+						paths[uid]['path length'][len(paths[uid]['path length'])-1] += 1
+					else:
+						print 'problem'
+				users[uid]['last action']=newline["_t"]
+
+	path_lengths=[]
+	for ii in paths:
+		path_lengths.append(paths[ii]['path length'])
+
+	##	Construct paths for d3
+	edges = dict()
+	all_edges = dict()
+	with open("/Users/mozilla/Desktop/RiskIO/risk_website_directed_graph_final.csv","w") as csvfile:
+		cc = csv.writer(csvfile)		
+		for uid in paths:
+			for numpath in paths[uid]['paths']:
+				count=0	
+				for node in paths[uid]['paths'][numpath][1:-1]:			
+					if paths[uid]['paths'][numpath][count] in node:
+						pass
+					elif paths[uid]['paths'][numpath][count]+'_to_'+node not in edges:
+						edges[paths[uid]['paths'][numpath][count]+'_to_'+node] = 1
+						all_edges[paths[uid]['paths'][numpath][count]+'_to_'+node] = 1
+					else:
+						edges[paths[uid]['paths'][numpath][count]+'_to_'+node]+=1
+						all_edges[paths[uid]['paths'][numpath][count]+'_to_'+node] = 1
+					count+=1
+		
+		trimmed_edges=dict()
+		for ii in edges:
+			if edges[ii] > 1:
+				trimmed_edges[ii]=edges[ii]		
+
+		## Write CSV
+		cc.writerow(['source','target','value'])
+		for tt in trimmed_edges:
+			splitline = tt.split('_to_')
+			line=[splitline[0],splitline[1],trimmed_edges[tt]]
+			cc.writerow(line)
+
+	with open("/Users/mozilla/Desktop/RiskIO/risk_website_directed_graph_ALL.csv","w") as SecondCSVfile:
+			cc2 = csv.writer(SecondCSVfile)
+			cc2.writerow(['source','target','value'])
+			for bb in all_edges:
+				splitline = bb.split('_to_')
+				line=[splitline[0],splitline[1],all_edges[bb]]	
+				cc2.writerow(line)
+
+	return users,paths,pages,edges
+</pre>
+</code>
+
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+<script type="text/javascript" src="directed_graph_3WWu.js"></script>
+<script type="text/javascript" src="RT_tree.js"></script>
+</body>
