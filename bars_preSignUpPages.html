@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Differences between Sign-up Vs. All Visitors</title>
+<link type="text/css" rel="stylesheet" href="/style.css" /> 
+<style>
+
+.bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+div.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  padding: 4px 8px;
+  display: none;
+}
+#chart {
+  width:1060;
+  height:500;
+}
+
+</style>
+<body>
+  <div style ="margin-left:60px; width:1060ps;"><h1 style="color:#FF9933;"> Risk I/O Public Site Traffic<h1>
+<h2>Differences in page hits between visitors who visited the sign-up page for a trial (n = 1,050) and all visitors (n = 14,078).  The only pages displayed are those that were visited before arriving at the sign-up page.  On each page or event, I am comparing the frequency of visits between those users who eventually sign up for a free trial (or at least visit the sign-up page) with all users.</h2>
+<p>James Ellis<br>May 10, 2015
+  </div>
+  <div style="float:left; margin-left:24%;"><span style="color:#FF0000;">Percent less commonly visited by users who signed up for trial</span><span style="color: #0000FF; padding-left:50px;">Percent more commonly visited by eventual trial users</span></div>
+  <div id = "chart"></div>
+  <div id="results"><h2>Conclusions</h2><h3>Pages dealing with features, connectors, and general proof of concept (e.g. video, tour) were highly correlated with sign-up.<p> Those users who eventually visited the sign-up page or signed up for a trial preferentially visited pages on the external site that dealt with the features offered by the Risk I/O plaform.<p>Combined with <a href="http://jaellis.com/directed_graph.html" target="_blank">my previous findings</a> of common recycling through the homepage, these results strongly support the idea of flatter website design with pages tailored to the strengths of the product.  Less emphasis is needed on the company, and more on the use of connectors, vulnerabilities, and scanners.</h3>  </div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var tooltip = d3.select("body").append("div").attr("class","tooltip");
+
+//Position of the tooltip relative to the cursor
+var tooltipOffset = {x: 5, y: -25};
+
+var margin = {top: 30, right: 10, bottom: 10, left: 60},
+    width = 1060 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], .2);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("top");
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("bars_preSignUpPages.csv", type, function(error, data) {
+  x.domain(d3.extent(data, function(d) { return d.value; })).nice();
+  y.domain(data.map(function(d) { return d.name; }));
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+      .attr("x", function(d) { return x(Math.min(0, d.value)); })
+      .attr("y", function(d) { return y(d.name); })
+      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      .attr("height", y.rangeBand())
+        .on("mouseover",showTooltip)
+        .on("mousemove",moveTooltip)
+        .on("mouseout",hideTooltip);
+    
+    svg.selectAll("text")
+    .data(data).enter()
+      .append("text") 
+      .text(function(d) {
+        if (Math.abs(d.value) > 0.2)
+        {
+          console.log(">"+d.name);
+          name = d.name
+        } 
+        else {
+          name = ""
+        }
+        return name;})
+      // .attr("x", function(d) { return x(Math.min(0, d.value)); })
+      // .attr("x", function(d) { console.log(300 - 50 * Math.abs(d.value));
+      //   return 600 - Math.pow(d.value,2)*-d.value; })
+      .attr("x", function(d) {
+        if(d.value > 0) {
+          x = 690 + (d.value * 50) 
+        }
+        else {
+          x = 600 + (d.value * 50) - d.name.length * 10
+        }
+        return x;
+      })
+      .attr("y", function(d) { return y(d.name) + 10; });
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+    .append("line")
+      .attr("x1", x(0))
+      .attr("x2", x(0))
+      .attr("y2", height);
+});
+
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+
+// Highlight a selection in the bar graph
+// function highlightBar(filterObj){
+//   var selection = featuresGraph.filter(function (d, filterObj) {
+//     return filterObj & 1;
+//   });
+// }
+
+//Create a tooltip, hidden at the start
+function showTooltip(d) {
+  moveTooltip();
+
+  tooltip.style("display","block")
+      .text( function () {
+        if (d.value > 0)  {
+          tag = "+"
+        }
+        else {
+          tag = "-"
+        }
+          return d.name+" "+tag+" "+Math.abs(d.value)+"%"});
+
+  // Highlight corresponding bar in graph
+  // highlightBar(d.name); 
+}
+
+//Move the tooltip to track the mouse
+function moveTooltip() {
+  tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
+      .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
+}
+
+//Create a tooltip, hidden at the start
+function hideTooltip() {
+  tooltip.style("display","none");
+}
+
+</script>
