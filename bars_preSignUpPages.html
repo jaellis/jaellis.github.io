@@ -4,6 +4,7 @@
 <!-- <link type="text/css" rel="stylesheet" href="/style.css" />  -->
 <style>
 body {
+  margin-left: 10%;
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
     line-height: 1.43;
@@ -46,12 +47,12 @@ div.tooltip {
 
 </style>
 <body>
-  <div style ="margin-left:10%px; width:1060px;"><h1 style="color:#FF9933;"> Risk I/O Public Site Traffic<h1>
+  <div style ="margin-left:60px; width:1060px;"><h1 style="color:#FF9933;"> Risk I/O Public Site Traffic<h1>
 <h2>Differences in page hits between visitors who visited the sign-up page for a trial (n = 1,050) and all visitors (n = 14,078).  The only pages displayed are those that were visited before arriving at the sign-up page.  On each page or event, I am comparing the frequency of visits between those users who eventually sign up for a free trial (or at least visit the sign-up page) with all users.</h2>
 <p>James Ellis<br>May 10, 2015
   </div>
   <div style="float:left; margin-left:24%;"><span style="color:#FF0000;">Percent less commonly visited by users who signed up for trial</span><span style="color: #0000FF; padding-left:50px;">Percent more commonly visited by eventual trial users</span></div>
-  <div id = "chart" style:"margin-left:10%;"></div>
+  <div id = "chart"></div>
   <div id="results"><h2>Conclusions</h2><h3>Pages dealing with features, connectors, and general proof of concept (e.g. video, tour) were highly correlated with sign-up.<p> Those users who eventually visited the sign-up page or signed up for a trial preferentially visited pages on the external site that dealt with the features offered by the Risk I/O plaform.<p>Combined with <a href="http://jaellis.com/directed_graph.html" target="_blank">my previous findings</a> of common recycling through the homepage, these results strongly support the idea of flatter website design with pages tailored to the strengths of the product.  Less emphasis is needed on the company, and more on the use of connectors, vulnerabilities, and scanners.</h3>  </div>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
@@ -61,7 +62,7 @@ var tooltip = d3.select("body").append("div").attr("class","tooltip");
 //Position of the tooltip relative to the cursor
 var tooltipOffset = {x: 5, y: -25};
 
-var margin = {top: 30, right: 10, bottom: 10, left: 0},
+var margin = {top: 30, right: 10, bottom: 10, left: 60},
     width = 1060 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
