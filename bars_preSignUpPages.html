@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Differences between Sign-up Vs. All Visitors</title>
-<link type="text/css" rel="stylesheet" href="/style.css" /> 
+<!-- <link type="text/css" rel="stylesheet" href="/style.css" />  -->
 <style>
-
+body {
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.43;
+    color: #565A5C;
+    background-color: #F5F5F5;
+    -moz-osx-font-smoothing: grayscale;
+}
 .bar.positive {
   fill: steelblue;
 }
@@ -39,7 +46,7 @@ div.tooltip {
 
 </style>
 <body>
-  <div style ="margin-left:60px; width:1060ps;"><h1 style="color:#FF9933;"> Risk I/O Public Site Traffic<h1>
+  <div style ="margin-left:60px; width:1060px;"><h1 style="color:#FF9933;"> Risk I/O Public Site Traffic<h1>
 <h2>Differences in page hits between visitors who visited the sign-up page for a trial (n = 1,050) and all visitors (n = 14,078).  The only pages displayed are those that were visited before arriving at the sign-up page.  On each page or event, I am comparing the frequency of visits between those users who eventually sign up for a free trial (or at least visit the sign-up page) with all users.</h2>
 <p>James Ellis<br>May 10, 2015
   </div>
@@ -54,7 +61,7 @@ var tooltip = d3.select("body").append("div").attr("class","tooltip");
 //Position of the tooltip relative to the cursor
 var tooltipOffset = {x: 5, y: -25};
 
-var margin = {top: 30, right: 10, bottom: 10, left: 60},
+var margin = {top: 30, right: 10, bottom: 10, left: 0},
     width = 1060 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
