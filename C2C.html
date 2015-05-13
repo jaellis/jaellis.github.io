@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link type="text/css" rel="stylesheet" href="/style.css" />
+<style>
+
+body {
+  font: 13px sans-serif;
+  margin-left: 5%;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis path {
+  display: none;
+}
+
+.line.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;  
+  pointer-events: none;         
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.line:hover {
+  -ms-transition: .1s;
+  -o-transition: .5s;
+  -transition: .75s;
+  stroke-width: 3.5px;
+
+}
+#chart {
+  position:absolute;
+  left:15%;
+  z-index: -1;
+  padding-top: 5%;
+
+}
+
+#radioButtons {
+  float:left;
+  padding-right: 1%;
+  height:300;
+  width: 50;
+  white-space: nowrap;
+}
+
+.line.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;  
+  pointer-events: none;         
+}
+#methods {
+  position:relative;
+  clear:both;
+  padding-top: 5%;
+}
+
+</style>
+<body>
+
+<div id="desc">
+  <h1>Chance to Carry (score)</h1>
+  <h2></h2>
+</div>
+<div id="credits" style="top:2%;right:2%;position:absolute;">James Ellis<p>Data Analyst<p>STATS,LLC</div>
+<div id="radioButtons"></div>
+<div id="chart"></div>
+<div id ="methods"><h2>Methods</h2>
+  <h3>C2C = rushers' percent of team's carries * team likelihood to rush<br><br>Split over section of the field<br><br>Note: Percentages will sum to the team's likelihood to rush, per field section.</h3>
+</div>
+
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+//Get Original Data up on the screen
+
+var margin = {top: 20, right: 80, bottom: 30, left: 100},
+    width = 860 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseMonth = d3.time.format("%m").parse;
+
+var parseDay = d3.time.format("%d").parse;
+
+var distance = ['Outside Red Zone','19 to 10 Yd Line','9 to 5 Yd Line','Inside 5 Yd Line'];
+
+var x = d3.scale.ordinal()
+    .domain(distance)
+    .rangePoints([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var formatPercent = d3.format(".0%");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(formatPercent);
+
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.Dist); })
+    .y(function(d) { return y(d.measurement); });
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function change(requestedTeam) {
+      d3.json('player_team.json',function(teams) {
+      
+      // var requestedTeam = 'Arizona Cardinals';
+      
+      
+      d3.csv("C2C_RBs_transposed.csv", function(error, data) {
+            color.domain(d3.keys(data[0]).filter(function(key) { return key !== "FieldPos"; }));
+            
+            data.forEach(function(d) {
+                d.Dist = d.FieldPos;
+              });
+      
+          var time_points = color.domain().map(function(name) {
+              return {
+                name: name,
+                values: data.map(function(d) {
+                  return { Dist: d.FieldPos, measurement: +d[name] };
+                })
+              };
+            });
+          var time_points_new = [];
+
+          for (p in time_points){
+            if (time_points[p].name in teams[requestedTeam])
+            {
+              console.log(time_points[p].name+' on '+requestedTeam);
+              time_points_new.push(time_points[p])
+            }
+          }
+
+           y.domain([
+            d3.min(time_points_new, function(c) { return d3.min(c.values, function(v) { return v.measurement; }); }),
+            d3.max(time_points_new, function(c) { return d3.max(c.values, function(v) { return v.measurement; }); })
+          ]);
+
+          // Join new data
+          var tp_new = d3.select("g").selectAll(".time_point")
+            .data(time_points_new);
+
+
+
+          tp_new.enter().append("g")
+            .attr("class", "time_point")
+            .append("path")
+            .attr("class", "line")
+            .attr("d", function(d) { return line(d.values); })
+            .style("stroke", function(d) { return color(d.name); });
+            tp_new.select("text")
+            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - Math.ceil(Math.random()*(d.values.length))]}; })
+            // .attr("text", function(d) { return d.name;})
+            .attr("transform", function(d) { console.log(d);return "translate(" + x(d.value.Dist) + "," + y(d.value.measurement) + ")"; })
+            .attr("x", -80)
+            .attr("y",0)
+            .attr("dy", ".71em")
+            .text(function(d) { return d.name; })
+            .transition();
+            
+
+tp_new.exit().remove();
+
+
+          // tp_new.select("text")
+            // .attr("transform", function(d) { return "translate(" + x(d.value.Dist) + "," + y(d.value.measurement) + ")"; })
+
+          tp_new.select("path")
+            .transition()
+            .duration(1500)
+            .style("stroke", function(d) { return color(d.name); })
+            .attr("d", function(d) { return line(d.values); });
+
+
+          var svg = d3.select("body")
+            .data(time_points_new)
+            .transition();
+
+          svg.select(".x.axis") // change the x axis
+            .duration(750)
+            .call(xAxis)
+          svg.select(".y.axis") // change the y axis
+            .duration(1500)
+            .call(yAxis);
+
+          });
+        
+        });
+};
+
+
+function gogogo(requestedTeam) {
+d3.json('player_team.json',function(teams) {
+
+// var requestedTeam = 'Arizona Cardinals';
+
+
+d3.csv("C2C_RBs_transposed.csv", function(error, data) {
+      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "FieldPos"; }));
+      
+      data.forEach(function(d) {
+          d.Dist = d.FieldPos;
+        });
+
+var labels = d3.select("#radioButtons").selectAll("label")
+    .data(Object.keys(teams))
+    .enter()
+    .append("label")
+    .text(function(d) { return d;})
+    .insert("input")
+    .attr({
+      type:"radio"
+      ,class:"shape"
+      ,name: "mode"
+      ,onclick: function (d) {return "change('"+d+"')";}
+      // ,onclick: function (d) { return "change()";}
+      ,value: function(d, i) { return i;}
+    })
+    .property("checked", function(d, i) { return d===requestedTeam[1]; });
+
+d3.select("#radioButtons").selectAll("label")
+.append("br");
+
+
+  var time_points = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return { Dist: d.FieldPos, measurement: +d[name] };
+      })
+    };
+  });
+
+console.log(data);
+
+var time_points_new = [];
+
+for (p in time_points){
+  if (time_points[p].name in teams[requestedTeam])
+  {
+    console.log(time_points[p].name+' on '+requestedTeam);
+    time_points_new.push(time_points[p])
+  }
+}
+
+  y.domain([
+    d3.min(time_points_new, function(c) { return d3.min(c.values, function(v) { return v.measurement; }); }),
+    d3.max(time_points_new, function(c) { return d3.max(c.values, function(v) { return v.measurement; }); })
+  ]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("x", 20)
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -80)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Chance to Score (rushing)");
+
+  var time_point = svg.selectAll(".time_point")
+      .data(time_points_new)
+      .enter().append("g")
+      .attr("class", "time_point")
+
+  var box = d3.select("body").append("path")   
+      .attr("class", "tooltip")               
+      .style("opacity", 0)
+
+  time_point.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); })
+    .on("mouseover",function(d){
+        box.transition()
+        .duration(200)
+        .style("opacity", .9)
+        .text(d.name)
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY) + "px");
+console.log(d.name)
+      })
+      .on("mouseout", function(d) {       
+            box.transition()        
+                .duration(500)      
+                .style("opacity", 0)
+            }) 
+
+  time_point.append("text")
+      // .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - Math.ceil(Math.random()*(d.values.length))]}; })
+      .attr("transform", function(d) { return "translate(" + x(d.value.Dist) + "," + y(d.value.measurement) + ")"; })
+      .attr("x", -80)
+      .attr("y",0)
+      .attr("dy", ".71em")
+      .text(function(d) { return d.name; })
+      .on("mouseover",function(d){
+        console.log(d.name)
+      })
+})
+
+});
+
+};
+
+
+window.onload(gogogo('Arizona Cardinals'));
+</script>
+</body>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <style>
+
+      body {
+        font-family: Consolas, courier;
+      }
+      rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+      text.mono {
+        font-size: 10pt;
+        /*font-family: Consolas, courier;*/
+        fill: #aaa;
+      }
+
+      text.axis-workweek {
+        fill: #000;
+      }
+
+      text.axis-worktime {
+        fill: #000;
+      }
+      div.tooltip {   
+        position: absolute;           
+        text-align: center;           
+        width: 60px;                  
+        height: 28px;                 
+        padding: 2px;             
+        font: 28px sans-serif; 
+        /*font-family: Consolas, courier;         */
+        fill: #aaa;
+        font-style: bold;
+        pointer-events: none;         
+      }
+    </style>
+    <script src="http://d3js.org/d3.v3.js"></script>
+  </head>
+  <body>
+    <div id="text" style = "float:left;">
+      <h1 style="color:#2E2E2E;">Deadly Down v1.0
+      </h1>
+      <h2 style = "color:#E68A00;">Percent of successful plays by player compared to League Avg.
+      </h2>
+    </div>
+    <div id="credits" style = "float:right; color:#999999;padding-right: 20%;">
+      <h3>James Ellis<p>Data Analyst<p>STATS, LLC</h3>
+    </div>
+    
+    <div id="chart"></div>
+
+    <script type="text/javascript">
+      var margin = { top: 50, right: 0, bottom: 100, left: 200 },
+          width = 960 - margin.left - margin.right,
+          height = 1700 - margin.top - margin.bottom,
+          gridSize = Math.floor(width / 10),
+          legendElementWidth = gridSize,
+          buckets = 10,
+          colors = ['#FF1100','#FF4400','#FF7700','#FFAA00','#FFDD00','#EEFF00','#BBFF00','#88FF00','#55FF00','#22FF00']
+          oldcolors = ["#FF0000","#FF9933","#FF6699","#CC66FF","#41b6c4","#0099FF","#1d91c0","#00FFCC","#00CC66","#33CC33"],
+          players = ['Peyton Manning',
+'Aaron Rodgers',
+'Drew Brees',
+'Tony Romo',
+'Matt Ryan',
+'Ben Roethlisberger',
+'Tom Brady',
+'Ryan Tannehill',
+'Eli Manning',
+'Philip Rivers',
+'Joe Flacco',
+'Andrew Luck',
+'Jay Cutler',
+'Russell Wilson',
+'Andy Dalton',
+'Colin Kaepernick',
+'Alex Smith',
+'Cam Newton',
+'Matthew Stafford',
+'Derek Carr'],
+          fieldPositions = ['MYGOAL','MY20','MY30','MY40','MY50','YOUR40','YOUR30','YOUR20','YOUR10','YOURGOAL'];
+          fieldPOS_display = ['1 to 10','11 to 20','21 to 30','31 to 40','41 to Mid','49 to 40','39 to 30','29 to 20','19 to 10','9 to Goal']
+
+      //Create a tooltip, hidden at the start
+      var tooltip = d3.select("body").append("div").attr("class","tooltip");
+      //Position of the tooltip relative to the cursor
+      var tooltipOffset = {x: 10, y: -10};
+
+      d3.csv("QB_tenths_LeagueAvg.csv",
+        function(d) {
+          return {
+            player: d.player,
+            field_pos: d.field_pos,
+            percentage: +d.percentage,          
+          };
+        
+        },        
+        function(error, data) {
+          var colorScale = d3.scale.quantile()
+              .domain([d3.min(data, function (d) { return d.percentage; }), buckets, d3.max(data, function (d) { return d.percentage; })])
+              .range(colors);
+console.log(data);
+          var svg = d3.select("#chart").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          var playerLabels = svg.selectAll(".playerLabel")
+              .data(players)
+              .enter().append("text")
+                .text(function (d) { return d; })
+                .attr("x", 0)
+                .attr("y", function (d, i) { console.log(d); return i * gridSize; })
+                .style("text-anchor", "end")
+                .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+                .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "playerLabel mono axis axis-workweek" : "playerLabel mono axis"); });
+
+          var fieldposLabels = svg.selectAll(".fieldPOSLabel")
+              .data(fieldPOS_display)
+              .enter().append("text")
+                .text(function(d) { return d; })
+                .attr("x", function(d, i) { return i * gridSize; })
+                .attr("y", 0)
+                .style("text-anchor", "middle")
+                .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "fieldPOSLabel mono axis axis-worktime" : "fieldPOSLabel mono axis"); });
+
+          var heatMap = svg.selectAll(".fieldposition")
+              .data(data)
+              .enter().append("rect")
+              .attr("y", function(d) { return (players.indexOf(d.player) - 1) * gridSize; })
+              .attr("x", function(d) { return (fieldPositions.indexOf(d.field_pos) - 1)  * gridSize; })
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("class", "fieldposition bordered")
+              .attr("transform", "translate(" + gridSize + "," + gridSize + ")")
+              .attr("width", gridSize*.99)
+              .attr("height", gridSize*.9)
+              .style("fill", colors[0])
+                  .on("mouseover",showTooltip)
+                  // .on("mouseover",highlightBar)
+                  .on("mousemove",moveTooltip)
+                  .on("mouseout",hideTooltip);
+              // .append("text")
+              // .text(function (d) { return d.percentage; });
+
+          heatMap.transition().duration(1000)
+              .style("fill", function(d) { return colorScale(d.percentage); });
+
+          heatMap.append("title").text(function(d) { return d.percentage; });
+              
+          var legend = svg.selectAll(".legend")
+              .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+              .enter().append("g")
+              .attr("class", "legend");
+
+          legend.append("rect")
+            .attr("x", function(d, i) { return legendElementWidth * i; })
+            .attr("y", height)
+            .attr("width", legendElementWidth)
+            .attr("height", gridSize / 3)
+            .style("fill", function(d, i) { return colors[i]; });
+
+          legend.append("text")
+            .attr("class", "mono")
+            .text(function(d) { return "≥ " + Math.round(d); })
+            .attr("x", function(d, i) { return legendElementWidth * i; })
+            .attr("y", height + gridSize);
+      });
+
+        //Create a tooltip, hidden at the start
+        function showTooltip(d) {
+          moveTooltip();
+
+          tooltip.style("display","block")
+              .text(function() {
+                if (d.percentage>0) {
+                  output = "+"+d.percentage+"%"
+                }
+                else {
+                  output = d.percentage+"%"
+                }
+                return output;});
+
+          // Highlight corresponding bar in graph
+          // highlightBar(d.properties.BEAT_NUM); 
+        }
+
+        //Move the tooltip to track the mouse
+        function moveTooltip() {
+          tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
+              .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
+        }
+
+        //Create a tooltip, hidden at the start
+        function hideTooltip() {
+          tooltip.style("display","none");
+        }
+        // Add optional onClick events for features here
+        // d.properties contains the attributes (e.g. d.properties.name, d.properties.population)
+        function clicked(d,i) {
+
+        }
+    </script>
+  </body>
+</html>
