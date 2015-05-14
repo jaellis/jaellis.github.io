@@ -13,6 +13,16 @@ body {
   margin-left: 5%;
 }
 
+div.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  padding: 4px 8px;
+  display: none;
+}
+
 .axis path,
 .axis line {
   fill: none;
@@ -28,7 +38,7 @@ body {
   display: none;
 }
 
-.line.tooltip {   
+.line.boxtooltip {   
   position: absolute;           
   text-align: center;           
   width: 60px;                  
@@ -54,7 +64,7 @@ body {
 #chart {
   position:absolute;
   left:15%;
-  z-index: -1;
+  z-index: 0;
   padding-top: 5%;
 
 }
@@ -67,15 +77,6 @@ body {
   white-space: nowrap;
 }
 
-.line.tooltip {   
-  position: absolute;           
-  text-align: center;           
-  width: 60px;                  
-  height: 28px;                 
-  padding: 2px;             
-  font: 12px sans-serif;  
-  pointer-events: none;         
-}
 #methods {
   position:relative;
   clear:both;
@@ -86,10 +87,10 @@ body {
 <body>
 
 <div id="desc">
-  <h1>Chance to Carry (score)</h1>
+  <h1>Chance to Carry</h1>
   <h2></h2>
 </div>
-<div id="credits" style="top:2%;right:2%;position:absolute;">James Ellis<p>Data Analyst<p>STATS,LLC<p><a href="jaellis.com" target="_blank">jaellis.com</a></div>
+<div id="credits" style="top:2%;right:2%;position:absolute;">James Ellis<p>Data Analyst<p>STATS,LLC<p><!-- <a href="jaellis.com" target="_blank">jaellis.com</a> --></div>
 <div id="radioButtons"></div>
 <div id="chart"></div>
 <div id ="methods"><h2>Methods</h2>
@@ -98,6 +99,11 @@ body {
 
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
+var tooltip = d3.select("body").append("div").attr("class","tooltip");
+
+//Position of the tooltip relative to the cursor
+var tooltipOffset = {x: 5, y: -25};
+
 //Get Original Data up on the screen
 
 var margin = {top: 20, right: 80, bottom: 30, left: 100},
@@ -190,19 +196,24 @@ function change(requestedTeam) {
             .append("path")
             .attr("class", "line")
             .attr("d", function(d) { return line(d.values); })
-            .style("stroke", function(d) { return color(d.name); });
+            .style("stroke", function(d) { return color(d.name); })
+            .transition()
+            // .attr("text", function(d) { return d.name;});
+            .text(function(d) {console.log(d);return d.name;});
+
+            tp_new.exit().remove();
+            
             tp_new.select("text")
-            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - Math.ceil(Math.random()*(d.values.length))]}; })
-            // .attr("text", function(d) { return d.name;})
+            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+            // .datum(function(d) { return {name: d.name, value: d.values[d.values.length - Math.ceil(Math.random()*(d.values.length))]}; }
             .attr("transform", function(d) { console.log(d);return "translate(" + x(d.value.Dist) + "," + y(d.value.measurement) + ")"; })
             .attr("x", -80)
             .attr("y",0)
             .attr("dy", ".71em")
             .text(function(d) { return d.name; })
             .transition();
-            
 
-tp_new.exit().remove();
+          tp_new.exit().remove();
 
 
           // tp_new.select("text")
@@ -256,7 +267,6 @@ var labels = d3.select("#radioButtons").selectAll("label")
       ,class:"shape"
       ,name: "mode"
       ,onclick: function (d) {return "change('"+d+"')";}
-      // ,onclick: function (d) { return "change()";}
       ,value: function(d, i) { return i;}
     })
     .property("checked", function(d, i) { return d===requestedTeam[1]; });
@@ -313,7 +323,7 @@ for (p in time_points){
       .attr("class", "time_point")
 
   var box = d3.select("body").append("path")   
-      .attr("class", "tooltip")               
+      .attr("class", "boxtooltip")               
       .style("opacity", 0)
 
   time_point.append("path")
@@ -324,20 +334,23 @@ for (p in time_points){
         box.transition()
         .duration(200)
         .style("opacity", .9)
+        .style("z-index",1)
         .text(d.name)
         .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY) + "px");
-console.log(d.name)
+        .style("top", (d3.event.pageY) + "px")
       })
+        //     .on("mouseover",showTooltip)
+        // .on("mousemove",moveTooltip)
+        // .on("mouseout",hideTooltip);
       .on("mouseout", function(d) {       
             box.transition()        
                 .duration(500)      
                 .style("opacity", 0)
-            }) 
+            }); 
 
   time_point.append("text")
-      // .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - Math.ceil(Math.random()*(d.values.length))]}; })
+      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+      // .datum(function(d) { return {name: d.name, value: d.values[d.values.length - Math.ceil(Math.random()*(d.values.length))]}; })
       .attr("transform", function(d) { return "translate(" + x(d.value.Dist) + "," + y(d.value.measurement) + ")"; })
       .attr("x", -80)
       .attr("y",0)
@@ -351,6 +364,31 @@ console.log(d.name)
 });
 
 };
+
+//Create a tooltip, hidden at the start
+function showTooltip(d) {
+  moveTooltip();
+
+  tooltip.style("display","block")
+          return d.name
+        };
+
+  // Highlight corresponding bar in graph
+  // highlightBar(d.name); 
+
+//Move the tooltip to track the mouse
+function moveTooltip() {
+  tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
+      .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
+}
+
+//Create a tooltip, hidden at the start
+function hideTooltip() {
+  tooltip
+  .transition()
+  .duration(2000)
+  .style("display","none");
+}
 
 
 window.onload(gogogo('Arizona Cardinals'));
