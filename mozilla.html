@@ -1,25 +1,98 @@
 <head>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-	  <meta name="keywords" contents="james,ellis,mozilla,quantitative,data,user,research"/>
-  <meta name="description" content="This is a 15 minute run-down of my internship at Mozilla.  Enjoy!"/>
-  <meta name="robots" content="index,follow"/>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-	<link type="text/css" rel="stylesheet" href="/style.css" />
+	<meta name="keywords" contents="james,ellis,mozilla,quantitative,data,user,research"/>
+	<meta name="description" content="This is a 15 minute run-down of my internship at Mozilla.  Enjoy!"/>
+	<meta name="robots" content="index,follow"/>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+	<link type="text/css" rel="stylesheet" href="/style_btstrp.css"/> 
+	<link type="text/css" rel="stylesheet" href="/preloader.css"/> 
+	<!-- <link type="text/js" rel="stylesheet" href="/preloader.js"/>  -->
+	<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+    //<![CDATA[
+        $(window).load(function() { // makes sure the whole site is loaded
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+            $('body').delay(350).css({'overflow':'visible'});
+        })
+    //]]>
+    </script>
 </head>
 <title>James A Ellis: My Time at Mozilla</title>
 <body>
-	<h2>My Internship at Mozilla in 14:39</h2>
-<iframe src="https://air.mozilla.org/intern-presentation-ellis/video/" width="900" height="450" frameborder="0" allowfullscreen></iframe>
+	<div class="page-header">
+		<h1>My Internship at Mozilla in 14:39</h1>
+	</div>
+	<div class="navbar navbar-inverse bg-faded" role="navigation" data-spy="affix-top" data-offset-top="400" id="nav">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#hamburger-nav">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class = "navbar-brand" href="#">JA Ellis</a>
+			</div>
+
+			<div class="navbar-collapse collapse" id="hamburger-nav">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="nav-item active">
+						<a href="/index.html">Home</a>
+					</li>
+					
+					<li class="dropdown">
+						<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Visualizations<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+							<li><h6 style="color:red;" class="text-center">Not Mobile-Friendly</h6></li>
+							<li>
+								<a href="http://inyourownwords.s424-dev.com/#!/dashboard" target="_blank">The Troubles: Northern Ireland</a>
+							</li>
+							<li>
+								<a href="visualizations.html">Chicago Crime</a>
+							</li>
+							<li class="dropdown-submenu">
+								<a tabindex="-1" href="#">Sports Statistics</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="QBtoReceiverNodes3.html" target="_blank">2014 NFL Playoff Passing</a>
+									</li>
+									<li>
+										<a href="C2C.html" target="_blank">Chance to Carry</a>
+									</li>
+									<li>
+										<a href="QB_SuccessfulPlay_Heatmap.html" target="_blank">QB Succ. Play Heatmap</a>
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a href="Ellis_CV_160205.pdf" target="_blank">Cirriculum Vitae</a>
+					</li>
+					<li>
+						<a class="nav-link" href="mailto:jellis1080@gmail.com">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="embed-responsive embed-responsive-4by3">
+		<iframe src="https://air.mozilla.org/intern-presentation-ellis/video/" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<div class="nav navbar-inverse " role="navigation">
+		<div class="container">
+			<div class="navbar-text pull-left">
+				<p>&copy; 2015 James Aaron Ellis</p>
+			</div>
+		</div>
+	</div>
 </body>
-<br><br>
-<div id="links"><h2>
-<a href ="http://jaellis.com">Home</a><br>
-<a href="research.html">Research</a><br>
-<a href="visualizations.html">Visualization</a><br>
-<a href="arts.html">Muses</a><br>
-<a href="aboutme.html">About Me</a><br>
-</h2></div><br><br>
-<footer><h2>
-  <p>James Aaron Ellis &copy; 2015</p></h2>
-  <p>Hosting by <a onmouseover="style='background-color:#6E6E6E'" href="https://github.com/" target="_blank"><img src="/GitHub-Mark-32px.png"></a></p>
-</footer>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+<script type="text/javascript" src="/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>

@@ -6,6 +6,20 @@
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
 <style>
 
+body {
+  font-family: Consolas, courier;
+}
+rect.bordered {
+  stroke: #E6E6E6;
+  stroke-width:2px;   
+}
+
+text.mono {
+  font-size: 10pt;
+  /*font-family: Consolas, courier;*/
+  fill: #aaa;
+}
+
 path.link {
   fill: none;
   stroke: #666;
@@ -37,113 +51,131 @@ text {
 
 </style>
 <body>
-  <div style="float:left;"><!-- <img src="/RiskIO.jpg"> --><h1 style="color:#FF9933;">2014 NFL Playoff Passing</h1><p><p><h2>STATS, LLC</h2><span style="font-size:9;">James Ellis<p>Data Analyst</span></div>
-  <div id="explanation">Each cluster represents the passing tree of a playoff passer. The central node will be the passer, with receivers branching off at varying distances based on average air yards to them. Please see reverse side for infographic details.<p>Not all are QBs!  Note the single line from Jon Ryan to Gary Gilliam, and <a href="http://www.foxsports.com/nfl/laces-out/seattle-seahawks-jon-ryan-garry-gilliam-green-bay-packers-011815" target="_blank">rewatch that amazing fake FG!</a></div>  
-  <!-- <div id="map1" style="float:left;" onload="graph_nodes('risk_website_directed_graph_streamData_trialUsers.csv');"></div> -->
+  <div style="float:left;"><!-- <img src="/RiskIO.jpg"> -->
+    <h1 style="color:#FF9933;">2014 NFL Playoff Passing</h1>
+    <h2>STATS, LLC</h2>
+    <span style="font-size:9;">James Ellis<br><br>Data Analyst</span>
+  </p>
+</div>
+  <div id="explanation" style="padding:5%;">
+    <h2>Each cluster represents the passing tree of a playoff passer. The central node will be the passer, with receivers branching off at varying distances based on average air yards to them.<!-- <em>Please see below for infographic details.</em> -->
+    </h2>
+    <div id="README" style="float:right; width:35%; padding-right:10%;">
 
-<script>
+      <h3>How to Read this Graphic</h3>
+      <p>Edge Length:<span style="color:#717171;"> Air Yards (avg)</span></p>
+      <!-- <p>Edge Width/Darkness:<span style="color:#717171;"> Targets</span> -->
+      <p>Node Size:<span style="color:#717171;"> Yards After the Catch (avg)</span></p>
+      <p>Color:<span style="color:#717171;"> QB Rating (avg)</span></p>
+      <h3 style="color:#717171;">Nodes are Draggable!</h3>
+
+    </div>  
+    <!-- <div id="map1" style="float:left;" onload="graph_nodes('risk_website_directed_graph_streamData_trialUsers.csv');"></div> -->
+    <div style="float:left; width:30%;color:#999999;"><h6>Not all are QBs!  Note the single line from Jon Ryan to Gary Gilliam, and <a href="http://www.foxsports.com/nfl/laces-out/seattle-seahawks-jon-ryan-garry-gilliam-green-bay-packers-011815" target="_blank">rewatch that amazing fake FG!</h6></a>
+    </div>
+    <script>
 
 // get the data
 function graph_nodes(filename,mapDiv) {
-d3.csv(filename, function(links) {
+  d3.csv(filename, function(links) {
 
-var nodes = {};
+    var nodes = {};
 
 // Compute the distinct nodes from the links.
 links.forEach(function(link) {
-    link.source = nodes[link.source] || 
-        (nodes[link.source] = {name: link.source});
-    link.target = nodes[link.target] || 
-        (nodes[link.target] = {name: link.target});
-    link.value = {value: +link.value};
+  link.source = nodes[link.source] || 
+  (nodes[link.source] = {name: link.source});
+  link.target = nodes[link.target] || 
+  (nodes[link.target] = {name: link.target});
+  link.value = {value: +link.value};
     // link.others = {yac: +link.yac, airyards: +link.airyards, comps: +link.comps};
-});
+  });
 
 var width = 1500,
-    height = 1000;
+height = 1000;
 
 var color = d3.scale.linear()
-    .domain([0,100,158.3])
-    .range(["red","yellow","green"]);
+.domain([0,100,158.3])
+.range(["red","yellow","green"]);
 
 var force = d3.layout.force()
-    .nodes(d3.values(nodes))
-    .links(links)
-    .size([width, height])
-    .linkDistance(function (d) { return Math.pow(+d.airyards,2); } )
-    .charge(-1000)
-    .gravity(0.1)
-    .friction(0.3)
-    .on("tick", tick)
-    .start();
+.nodes(d3.values(nodes))
+.links(links)
+.size([width, height])
+.linkDistance(function (d) { return Math.pow(+d.airyards,2); } )
+.charge(-1000)
+.gravity(0.1)
+.friction(0.3)
+.on("tick", tick)
+.start();
 
 var svg = d3.select(mapDiv).append("svg")
-    .attr("width", width)
-    .attr("height", height);
+.attr("width", width)
+.attr("height", height);
 
 // build the arrow.
 svg.append("svg:defs").selectAll("marker")
-    .data(["end"])
-  .enter().append("svg:marker")
-    .attr("id", String)
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", -1.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-  .append("svg:path")
-    .attr("d", "M0,-5L10,0L0,5");
+.data(["end"])
+.enter().append("svg:marker")
+.attr("id", String)
+.attr("viewBox", "0 -5 10 10")
+.attr("refX", 15)
+.attr("refY", -1.5)
+.attr("markerWidth", 6)
+.attr("markerHeight", 6)
+.attr("orient", "auto")
+.append("svg:path")
+.attr("d", "M0,-5L10,0L0,5");
 
 // add the links and the arrows
 var path = svg.append("svg:g").selectAll("path")
-    .data(force.links())
-  .enter().append("svg:path")
-    .attr("class", "link")
-    .attr("stroke-width", function(d) { console.log(d);return Math.sqrt(+d.targets); })
+.data(force.links())
+.enter().append("svg:path")
+.attr("class", "link")
+.attr("stroke-width", function(d) { console.log(d);return Math.sqrt(+d.targets); })
     // .attr("stroke", function(d) { console.log(d); return color(+d.rating); }))
-    .attr("marker-end", "url(#end)");
-    
+.attr("marker-end", "url(#end)");
+
 
 // define the nodes
 var node = svg.selectAll(".node")
-    .data(force.nodes())
-  .enter().append("g")
-    .attr("class", "node")
-    .call(force.drag);
+.data(force.nodes())
+.enter().append("g")
+.attr("class", "node")
+.call(force.drag);
 
 // add the nodes
 node.append("circle")
-    .data(links)
+.data(links)
     // .attr("r", function(d){ return (10* (+d.rating/158.3)) + 4;})
     .attr("r", function(d){ return +d.yac; } )
     .style("fill",function(d){ return color(+d.rating);});
 
 // add the text 
 node.append("text")
-    .attr("x",-20)
-    .attr("y",-15)
-    .style("font-size",14)
-    .attr("dy", ".35em")
-    .text(function(d) { return d.name; });
+.attr("x",-20)
+.attr("y",-15)
+.style("font-size",14)
+.attr("dy", ".35em")
+.text(function(d) { return d.name; });
 
 // add the curvy lines
 function tick() {
-    path.attr("d", function(d) {
-        var dx = d.target.x - d.source.x,
-            dy = d.target.y - d.source.y,
-            dr = Math.sqrt(dx * dx + dy * dy);
-        return "M" + 
-            d.source.x + "," + 
-            d.source.y + "A" + 
-            dr + "," + dr + " 0 0,1 " + 
-            d.target.x + "," + 
-            d.target.y;
-    });
+  path.attr("d", function(d) {
+    var dx = d.target.x - d.source.x,
+    dy = d.target.y - d.source.y,
+    dr = Math.sqrt(dx * dx + dy * dy);
+    return "M" + 
+    d.source.x + "," + 
+    d.source.y + "A" + 
+    dr + "," + dr + " 0 0,1 " + 
+    d.target.x + "," + 
+    d.target.y;
+  });
 
-    node
-        .attr("transform", function(d) { 
-            return "translate(" + d.x + "," + d.y + ")"; });
+  node
+  .attr("transform", function(d) { 
+    return "translate(" + d.x + "," + d.y + ")"; });
 }
 
 })
@@ -152,15 +184,6 @@ function tick() {
 window.onload = graph_nodes('\QBtoWR.csv','#map1');
 // window.onload = graph_nodes('site_traffic_percent_edges_Other.csv','#map2');
 </script>
-<div id="README" style="float:right; width:100; padding-right:10%;">
-
-  <h3>How to Read this Graphic</h3>
-  <p>Edge Length:<span style="color:#717171;"> Air Yards (avg)</span>
-    <!-- <p>Edge Width/Darkness:<span style="color:#717171;"> Targets</span> -->
-  <p>Node Size:<span style="color:#717171;"> Yards After the Catch (avg)</span>
-  <p>Color:<span style="color:#717171;"> QB Rating (avg)</span>
-  <h3 style="color:#717171;">Nodes are Draggable!</h3>
-</div>
 <div id="map1" style="float:right;width:100%;"><!-- <h2>Trial Users</h2> --></div>
 <!-- <div id="map2"><h2>Other Users</h2></div> -->
 
