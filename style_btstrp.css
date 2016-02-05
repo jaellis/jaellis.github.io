@@ -1,0 +1,176 @@
+
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+body {
+	/*font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
+	font-family: Oswald,sans-serif !important;
+	font-size: 16px;
+	line-height: 1.43;
+	color: #565A5C;
+	/*background-color: #F5F5F5;*/
+	-moz-osx-font-smoothing: grayscale;
+	overflow: hidden;
+}
+
+#work{
+	z-index: 100;
+}
+
+.outer { 
+	height:400px;
+	background: url(/NU_Physiology_1900.png);
+	z-index: -5;
+}
+.SDCars {
+    background: url(/selfdrivinggooglecars.png); 
+    height: 400px;
+    /*background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+*/    z-index: -5; 
+
+  }
+
+.textover { 
+	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	position: absolute; 
+	top: 2em; 
+	left: 0; 
+	width: 100%; 
+	padding: 4px; 
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-color: #fff; 
+	font-weight: bold; 
+	font-size: 28px; 
+	opacity: .8 
+} 
+
+#reingold {
+	width:30%;
+	height:30%;
+}
+
+.navbutton {
+	background: #ffa900;
+	outline: none;
+}
+
+.navbutton:hover {
+	background: #d2ccc7;
+	color: #727272;
+}
+
+#nav.affix {
+	position: fixed;
+	top: 0;
+	width: 100%
+}
+
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+.nav-pills :active :hover {
+	background-color: #b9b9b9;
+}
+
+path {
+	stroke: #fff;
+	fill-rule: evenodd;
+}
+
+div.tooltip {
+	position: absolute !important;
+	background-color: white !important;
+	border: 1px solid black !important;
+	color: black !important;
+	font-weight: bold !important;
+	padding: 4px 8px !important;
+	display: none;
+}
+
+#button {
+	background: #ff9900;
+	color: #ffffff;
+}
+
+.rotate {
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);	
+}
+
+/*.pane {
+	background-color: #F5F5F5 !important;
+}*/
+
+.gray {color: #d9d9d9;}
+
+.hidden-sm {visibility: hidden !important;}
+.hidden-md {visibility: hidden !important;}
+.hidden-lg {visibility: hidden !important;}
+.hidden-xl {visibility: hidden !important;}
+
+.visible-sm {visibility: visibile !important;}
+.visible-md {visibility: visibile !important;}
+.visible-lg {visibility: visibile !important;}
+.visible-xl {visibility: visibile !important;}
+
+#workplaces {
+	padding-top: 100px;
+}
+
+.breadcrumbs {
+	/*display: none;*/
+}

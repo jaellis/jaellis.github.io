@@ -4,412 +4,210 @@
   <meta name="description" content="My name is James. I am a neuroscientist and data geek. These are some of my data visualizations"/>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
   <meta name="robots" content="index,follow"/>
-	<link type="text/css" rel="stylesheet" href="/style.css" />
-</head>
+  <!-- <link type="text/css" rel="stylesheet" href="/style.css" /> -->
+  <link type="text/css" rel="stylesheet" href="/style_btstrp.css"/> 
+  <link type="text/css" rel="stylesheet" href="/preloader.css"/> 
+  <!-- <link type="text/js" rel="stylesheet" href="/preloader.js"/>  -->
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+  <script src="/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript">
+    //<![CDATA[
+        $(window).load(function() { // makes sure the whole site is loaded
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+            $('body').delay(350).css({'overflow':'visible'});
+          })
+    //]]>
+    </script>
+  </head>
 
-<style>
-#map {
-  width: 491px;
-  height :600px;/*
-  position:absolute;*/
-}
+  <style>
+  #map {
+    width: 500;
+    height: 600;
+  }
 
-path {
-  stroke-width: 1px;
-  stroke: white;
-  fill: #999;
-  cursor: pointer;
-}
+  path {
+    stroke-width: 1px;
+    stroke: white;
+    fill: #999;
+    cursor: pointer;
+  }
 
-form {
-  position:absolute;
-  left:500px;
-  top:50px;
-}
-path.q0-6 {
-  fill: #feedde;
-}
+  form {
+    position:absolute;
+    left:500px;
+    top:50px;
+  }
+  path.q0-6 {
+    fill: #feedde;
+  }
 
-path.q1-6 {
-  fill: #fdd0a2;
-}
+  path.q1-6 {
+    fill: #fdd0a2;
+  }
 
-path.q2-6 {
-  fill: #fdae6b;
-}
+  path.q2-6 {
+    fill: #fdae6b;
+  }
 
-path.q3-6 {
-  fill: #fd8d3c;
-}
+  path.q3-6 {
+    fill: #fd8d3c;
+  }
 
-path.q4-6 {
-  fill: #e6550d;
-}
+  path.q4-6 {
+    fill: #e6550d;
+  }
 
-path.q5-6 {
-  fill: #a63603;
-}
+  path.q5-6 {
+    fill: #a63603;
+  }
 
-div.tooltip {
-  position: absolute;
-  background-color: white;
-  border: 1px solid black;
-  color: black;
-  font-weight: bold;
-  padding: 4px 8px;
-  display: none;
-}
-</style>
+  div.tooltip {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    padding: 4px 8px;
+    display: none;
+  }
+  </style>
 
-<title>James A Ellis: Data Visualizations</title>
+  <title>James A Ellis: Data Visualizations</title>
 
-<body>
-	<header>
-	<div class="FingerPainting" style="margin-left:-20%; margin-right:-200px;"></div>
-</header>
+  <body>
+    <div class = "page-header">
+      <h1>Data Viz</h1>
+    </div>
+    <div class="navbar navbar-inverse bg-faded" role="navigation" data-spy="affix-top" data-offset-top="400" id="nav">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#hamburger-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class = "navbar-brand" href="#">JA Ellis</a>
+        </div>
 
-	<p class="toprightJC"  style ="padding-left:10%; width:95.7%; top:1em; font-size:36;">Data Viz</p>
-<nav id ="navbar" class="main-nav">
-    <ul>
-    <ll id="Home" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href ="http://jaellis.com">Home</a></ll>
-    <ll id = "Research" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="research.html">Research</a></ll>
-    <ll id="Muses" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="arts.html">Muses</a></ll>
-    <ll id ="AboutMe" style="padding-left:20px;"><a onmouseover="style='background-color:#EFEFEF;'" href="aboutme.html">About Me</a></ll>
-  </ul>
-</nav>
-<div id="firstPara">
-  <h1 style="padding-left:400px;width:500px">Data tell sloppy stories.</h1><br>
+        <div class="navbar-collapse collapse" id="hamburger-nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item active">
+              <a href="/index.html">Home</a>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Visualizations<b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                <li><h6 style="color:red;" class="text-center">Not Mobile-Friendly</h6></li>
+                <li>
+                  <a href="http://inyourownwords.s424-dev.com/#!/dashboard" target="_blank">The Troubles: Northern Ireland</a>
+                </li>
+                <li>
+                  <a href="visualizations.html">Chicago Crime</a>
+                </li>
+                <li class="dropdown-submenu">
+                  <a tabindex="-1" href="#">Sports Statistics</a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="QBtoReceiverNodes3.html" target="_blank">2014 NFL Playoff Passing</a>
+                    </li>
+                    <li>
+                      <a href="C2C.html" target="_blank">Chance to Carry</a>
+                    </li>
+                    <li>
+                      <a href="QB_SuccessfulPlay_Heatmap.html" target="_blank">QB Succ. Play Heatmap</a>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="Ellis_CV_160205.pdf" target="_blank">Cirriculum Vitae</a>
+            </li>
+            <li>
+              <a class="nav-link" href="mailto:jellis1080@gmail.com">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-xs-offset-2">
+        <h1>Data tell sloppy stories.</h1><br><br>
+      </div>
+    </div>
+
+    <!-- <div style ="padding-bottom:30px;"id="mid_col"> -->
+  <!-- <br>Over an absolutely stunning August weekend in 2015, I teamed up with <a href="http://www.studio-424.com" target="_blank">Jon Linton</a>, <a href="http://www.yanakunichoff.com" target="_blank">Yana Kunichoff</a>, and <a href="http://www.scrappersfilmgroup.com" target="_blank">Brian Ashby</a> to create a new method of viewing documentary material.  The PBS: POV Hackathon series has an application process, so I was ecstatic to be selected, let alone teamed up with such great people.  Brian came with some 50+ interviews of family members who had lost loved ones during <a href="https://en.wikipedia.org/wiki/The_Troubles" target="_blank">The Troubles</a>, and it was Jon and my job to create an interface that would "re-imagine the documentary for web" in just over 36 hours.
+  <br><br>
+  What we created won the <a href="http://www.pbs.org/pov/blog/news/2015/08/pov-hackathon-9-explore-the-prototypes-and-the-technology/2/" target="_blank">Participant's Choice award</a>, selected by our fellow hackathoners.  Besides building a cool, novel interface with amazing people, it was also a great learning experience and window into a conflict that still simmers today.
+</div> -->
+
+
+<div class="row">
+  <div class ="col-md-10 col-md-offset-1"><h4>My adopted city's crime is an ever-evolving blight. In my free time I try to visualize its spread, patterns and underlying stories.</h4><br>
+    </div>
+    <div class="col-xs-6 col-xs-offset-2">Here's a Heatmap of Crimes in Chicago (2013).</div>
+  </div>
 </div>
-<div>
-  <!-- <h2 style="padding-left:400px;width:500px"> -->
-  <h2 style="width:500px">My adopted city's crime fascinates me. In my free time I try to visualize its spread, patterns and underlying stories.</h2><br><br>
-  <h2 style="width:500px;">Here's a Heatmap of Crimes in Chicago</h2>
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-1" id="map">
+    <!-- <div class="embed-responsive embed-responsive-4by3"> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <div class="col-md-3">
+      <form>
+        <input type="radio" name="dataset" value="BATTERY" onClick="updateData('BATTERY')"> Battery<br>
+        <input type="radio" name="dataset" value="INTERFERENCE WITH PUBLIC OFFICER" onClick="updateData('INTERFERENCE WITH PUBLIC OFFICER')"> Interference with officer<br>
+        <input type="radio" name="dataset" value="KIDNAPPING" onClick="updateData('KIDNAPPING')"> Kidnapping<br>
+        <input type="radio" name="dataset" value="PROSTITUTION" onClick="updateData('PROSTITUTION')"> Prostitution<br>
+        <input type="radio" name="dataset" value="LIQUOR LAW VIOLATION" onClick="updateData('LIQUOR LAW VIOLATION')"> Liquor Law Violation<br>
+        <input type="radio" name="dataset" value="ROBBERY" onClick="updateData('ROBBERY')" checked> Robbery<br>
+        <input type="radio" name="dataset" value="BURGLARY" onClick="updateData('BURGLARY')"> Burglary<br>
+        <input type="radio" name="dataset" value="WEAPONS VIOLATION" onClick="updateData('WEAPONS VIOLATION')"> Weapons Violation<br>
+        <input type="radio" name="dataset" value="HOMICIDE" onClick="updateData('HOMICIDE')"> Homicide<br>
+        <input type="radio" name="dataset" value="MOTOR VEHICLE THEFT" onClick="updateData('MOTOR VEHICLE THEFT')"> Motor Vehicle Theft<br>
+        <input type="radio" name="dataset" value="OFFENSE INVOLVING CHILDREN" onClick="updateData('OFFENSE INVOLVING CHILDREN')"> Offense Involving Children<br>
+        <input type="radio" name="dataset" value="GAMBLING" onClick="updateData('GAMBLING')"> Gambling<br>
+        <input type="radio" name="dataset" value="NARCOTICS" onClick="updateData('NARCOTICS')"> Narcotics<br>
+        <input type="radio" name="dataset" value="CRIM SEXUAL ASSAULT" onClick="updateData('CRIM SEXUAL ASSAULT')"> Sexual Assault<br>
+        <input type="radio" name="dataset" value="STALKING" onClick="updateData('STALKING')"> Stalking<br>
+        <input type="radio" name="dataset" value="ARSON" onClick="updateData('ARSON')"> Arson<br>
+      </form>
+    </div>
+  </div>
 </div>
-  <div id="map" style="left:10%;"></div>
-  <form style="float:right; padding-left:20%; top:900px;">
-  <input type="radio" name="dataset" value="BATTERY" onClick="updateData('BATTERY')"> Battery<br>
-  <input type="radio" name="dataset" value="INTERFERENCE WITH PUBLIC OFFICER" onClick="updateData('INTERFERENCE WITH PUBLIC OFFICER')"> Interference with officer<br>
-  <input type="radio" name="dataset" value="KIDNAPPING" onClick="updateData('KIDNAPPING')"> Kidnapping<br>
-  <input type="radio" name="dataset" value="PROSTITUTION" onClick="updateData('PROSTITUTION')"> Prostitution<br>
-  <input type="radio" name="dataset" value="LIQUOR LAW VIOLATION" onClick="updateData('LIQUOR LAW VIOLATION')"> Liquor Law Violation<br>
-  <input type="radio" name="dataset" value="ROBBERY" onClick="updateData('ROBBERY')" checked> Robbery<br>
-  <input type="radio" name="dataset" value="BURGLARY" onClick="updateData('BURGLARY')"> Burglary<br>
-  <input type="radio" name="dataset" value="WEAPONS VIOLATION" onClick="updateData('WEAPONS VIOLATION')"> Weapons Violation<br>
-  <input type="radio" name="dataset" value="HOMICIDE" onClick="updateData('HOMICIDE')"> Homicide<br>
-  <input type="radio" name="dataset" value="MOTOR VEHICLE THEFT" onClick="updateData('MOTOR VEHICLE THEFT')"> Motor Vehicle Theft<br>
-  <input type="radio" name="dataset" value="OFFENSE INVOLVING CHILDREN" onClick="updateData('OFFENSE INVOLVING CHILDREN')"> Offense Involving Children<br>
-  <input type="radio" name="dataset" value="GAMBLING" onClick="updateData('GAMBLING')"> Gambling<br>
-  <input type="radio" name="dataset" value="NARCOTICS" onClick="updateData('NARCOTICS')"> Narcotics<br>
-  <input type="radio" name="dataset" value="CRIM SEXUAL ASSAULT" onClick="updateData('CRIM SEXUAL ASSAULT')"> Sexual Assault<br>
-  <input type="radio" name="dataset" value="STALKING" onClick="updateData('STALKING')"> Stalking<br>
-  <input type="radio" name="dataset" value="ARSON" onClick="updateData('ARSON')"> Arson<br>
-</form>
-<!-- <graph style="padding-left:200px; top:100px;"></graph> -->
-<div style="width:500px; font-size:24;">With every new selection, the shading of wards is updated and normalized over the range of that crime's frequency throughout the city.<br>
+<div class="row">
+  <!-- <graph style="padding-left:200px; top:100px;"></graph> -->
+  <div class="col-md-6 col-md-offset-1"><br><h3>With every new selection, the shading of wards is updated and normalized over the range of that crime's frequency throughout the city.</h3><br>
+  </div>
 </div>
-	<div style="font-size:24">
-		<br><br>Some more visualizations of crime in Chicago.<br> 
-		<x>Under Construction</x>
-		<p><a href ="http://bl.ocks.org/jaellis/02a95bc1d86931ee6b6e" target="_blank"><img src="/ChiCrimebyType.png" alt="Crime by Type" style="width:325px;height:233px;"></a><a href ="http://bl.ocks.org/jaellis/b1f64f34b7bb6a0fc2a5" target="_blank">  <img src="/ChiCrimebyMonth.png" alt="Crime by Month" style="width:325px;height:233px;"></a>&nbsp;
-		 </p>
-	</div>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <h3>Some more visualizations of crime in Chicago.</h3>
+    <p style="color:orange;">Under Construction</p>
+    <p><a href ="http://bl.ocks.org/jaellis/02a95bc1d86931ee6b6e" target="_blank"><img src="/ChiCrimebyType.png" alt="Crime by Type" style="width:325px;height:233px;"></a><a href ="http://bl.ocks.org/jaellis/b1f64f34b7bb6a0fc2a5" target="_blank">  <img src="/ChiCrimebyMonth.png" alt="Crime by Month" style="width:325px;height:233px;"></a>&nbsp;
+    </p>
+  </div>
+</div>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
+<script src="/crimeMap.js"></script>
 
-var dispatch = d3.dispatch("load", "statechange");
-
-//Map dimensions (in pixels)
-var width = 491,
-    height = 600;
-
-//Graph dimensions (in pixels)
-var widthGraph = 300,
-    heightGraph = 400
-    paddingLeft = 200;
-
-//Map projection
-var projection = d3.geo.mercator()
-    .scale(64292.654161452716)
-    .center([-87.73212559489255,41.83407278286622]) //projection center
-    .translate([width/2,height/2]) //translate to center the map in view
-
-//Generate paths based on projection
-var path = d3.geo.path()
-    .projection(projection);
-
-//Create an SVG
-var svg = d3.select("#map").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-var svgGraph = d3.select("graph").append("svg")
-    .attr("width", widthGraph)
-    .attr("height", heightGraph)
-    .attr("padding-left", paddingLeft);
-
-// Graph stuffz //////////////////
-// var x = d3.scale.ordinal()
-//     .rangeRoundBands([0, widthGraph], .1);
-
-// var y = d3.scale.linear()
-//     .range([heightGraph, 0]);
-
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//     .orient("bottom");
-
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left")
-//     .ticks(10);
-////////////////////////////////////
-
-//Group for the map features
-var features = svg.append("g")
-    .attr("class","features");
-
-//Group for the graph features
-var featuresGraph = svgGraph.append("g")
-    .attr("class","features");
-
-//Create choropleth scale
-var color = d3.scale.quantize()
-    .domain([0,15])
-    .range(d3.range(6).map(function(i) { return "q" + i + "-6"; }));
-
-//Create zoom/pan listener
-//Change [1,Infinity] to adjust the min/max zoom scale
-var zoom = d3.behavior.zoom()
-    .scaleExtent([1, Infinity])
-    .on("zoom",zoomed);
-
-svg.call(zoom);
-
-//Create a tooltip, hidden at the start
-var tooltip = d3.select("body").append("div").attr("class","tooltip");
-
-// Load Data conventional way -- works
-d3.json("bounds_wCrimes.json",function(error,geodata) {
-  if (error) return console.log(error); //unknown error, check the console
-
- var thiscrime = [];
-    for (i=0; i < geodata['features'].length; i++) {
-      thiscrime.push(geodata['features'][i]['properties'].ROBBERY);
-    }
-
-  var crimes = Object.keys(geodata.features[0]['properties']);
-    console.log(crimes);
-  //Create a path for each map feature in the data
-  features.selectAll("path")
-    .data(geodata.features)
-    .enter()
-    .append("path")
-    .attr("d",path)
-    .attr("class", function(d) { return (typeof color(d.properties.ROBBERY) == "string" ? color(d.properties.ROBBERY) : ""); })
-    // .on("mouseover",showTooltip)
-    // .on("mouseover",highlightBar)
-    .on("mousemove",moveTooltip)
-    .on("mouseout",hideTooltip)
-    .on("click",clicked);
-
-// More Graph stuffz //////////////////
-// var y = d3.scale.ordinal()
-//     .domain(thiscrime)
-//     .rangeBands([0, heightGraph]);
-
-// var x = d3.scale.linear()
-//     .domain([0,d3.max(thiscrime)])
-//     .range([0, widthGraph]);
-
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//     .orient("bottom");
-
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left")
-//     .ticks(10);
-
-  // featuresGraph.append("g")
-  //     .attr("class", "x axis")
-  //     .call(yAxis)
-  //   .append("text")
-  //     .attr("transform", "rotate(-90)")
-  //     .attr("y", 5)
-  //     .attr("dy", ".71em")
-  //     .style("text-anchor", "end")
-  //     .text("Robbery Stats\nThroughout the City of Wind");
-
-// var barWidth = widthGraph / thiscrime.length;
-
-// console.log(thiscrime);
-
-//   featuresGraph.selectAll(".bar")
-//       .data(thiscrime)
-//     .enter().append("rect")
-//     // .attr("transform", "rotate(90)")
-//       .attr("class", "bar")
-//       .attr("x",0)
-//       .attr("y",y)
-//       .attr("width", x)
-//       .attr("height", y.rangeBand)
-//     .on("mouseover",highlightArea(thiscrime));
-////////////////////////////////////
-
-});
-
-function updateData(crimeType) {
-  d3.json("bounds_wCrimes.json",function(error,geodata) {
-    var thiscrime = [];
-    var deezbeats = [];
-    for (i=0; i < geodata['features'].length; i++) {
-      thiscrime.push(geodata['features'][i]['properties'][crimeType]);
-    }
-      var max = d3.max(thiscrime);
-
-console.log(thiscrime);
-    // Scale chloropleth
-      var color = d3.scale.quantize()
-        .domain([0,max])
-        .range(d3.range(6).map(function(i) { return "q" + i + "-6"; }));
-
-        features.selectAll("path")
-        .data(geodata.features)
-        .transition(50)
-        .attr("class", function(d) { return (typeof color(d.properties[crimeType]) == "string" ? color(d.properties[crimeType]) : ""); 
-         console.log(d.properties[crimeType]);
-        });
-    features
-        // .on("mouseover",showTooltip)
-        // .on("mousemove",moveTooltip)
-        // .on("mouseout",hideTooltip)
-        .on("click",clicked);    
-
-    // More Graph stuffz //////////////////
-    var y = d3.scale.ordinal()
-        .domain(thiscrime)
-        .rangeBands([0,heightGraph]);
-
-    var x = d3.scale.linear()
-        .domain([0,d3.max(thiscrime)])
-        .range([0, widthGraph]);
-
-      // featuresGraph.selectAll(".bar")
-      //     .data(thiscrime)
-      //     .transition(50)
-      //     .attr("class", "bar")
-      //     .attr("text",crimeType + " Stats\nThroughout the City of Wind")
-      //     .attr("x",0)
-      //     .attr("y",y)
-      //     .attr("width", x)
-      //     .attr("height",y.rangeBands());
-    ////////////////////////////////////
-
-    });
-
-}
-
-// A drop-down menu for selecting a state; uses the "menu" namespace.
-dispatch.on("load.menu", function(crimes) {
-  console.log(crimes);
-  var select = d3.select("body")
-    .append("div")
-    .append("select")
-      .on("change", function() { dispatch.statechange(crimes.get(this.value)); });
-
-  select.selectAll("option")
-      .data(stateById.values())
-    .enter().append("option")
-      .attr("value", function(d) { return d.id; })
-      .text(function(d) { return d.id; });
-
-  dispatch.on("statechange.menu", function(state) {
-    select.property("value", state.id);
-  });
-});
-
-
-// Add optional onClick events for features here
-// d.properties contains the attributes (e.g. d.properties.name, d.properties.population)
-function clicked(d,i) {
-
-}
-
-
-//Update map on zoom/pan
-function zoomed() {
-  features.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")")
-      .selectAll("path").style("stroke-width", 1 / zoom.scale() + "px" );
-}
-
-
-//Position of the tooltip relative to the cursor
-var tooltipOffset = {x: 5, y: -25};
-
-// Highlight bar-corresponding area on map
-function highlightArea (thislist) {
-  console.log(thislist);
-  var v = thislist;
-  features.selectAll("path").filter(":nth-child("+v+")")[0]
-}
-
-// Highlight a selection in the bar graph
-function highlightBar(filterObj){
-  var selection = featuresGraph.filter(function (d, filterObj) {
-    return filterObj & 1;
-  });
-}
-
-//Create a tooltip, hidden at the start
-function showTooltip(d) {
-  moveTooltip();
-
-  tooltip.style("display","block")
-      .text("District: " + d.properties.SECTOR);
-
-  // Highlight corresponding bar in graph
-  highlightBar(d.properties.BEAT_NUM); 
-}
-
-//Move the tooltip to track the mouse
-function moveTooltip() {
-  tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
-      .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
-}
-
-//Create a tooltip, hidden at the start
-function hideTooltip() {
-  tooltip.style("display","none");
-}
-
-</script>
-
+<div class="nav navbar-inverse " role="navigation">
+  <div class="container">
+    <div class="navbar-text pull-left">
+      <p>&copy; 2015 James Aaron Ellis</p>
+    </div>
+  </div>
+</div>
 </body>
-<br><br>
-<footer><h2>
-  <p>James Aaron Ellis &copy; 2015</p></h2>
-  <p>Hosting by <a onmouseover="style='background-color:#6E6E6E'" href="https://github.com/" target="_blank"><img src="/GitHub-Mark-32px.png"></a></p>
-</footer>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
-<script type="text/javascript">
-
-// Sticky Nav from CodePen
-var  mn = $(".main-nav");
-    mns = "main-nav-scrolled";
-    hdr = 380;
-
-console.log($('header').height());
-
-$(window).scroll(function() {
-  if( $(this).scrollTop() > hdr ) {
-    mn.addClass(mns);
-    document.getElementById("firstPara").style.marginTop="460px";
-    document.getElementById("navbar").style.marginTop="-450px";
-  } else {
-    mn.removeClass(mns);
-    document.getElementById("firstPara").style.marginTop="0px";
-    document.getElementById("navbar").style.marginTop="400px";
-  }
-});
-</script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+<script type="text/javascript" src="/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
