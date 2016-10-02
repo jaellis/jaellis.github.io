@@ -7,10 +7,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+/*body {
     margin-left: 20%;
     margin-right: 200px;
-}
+*/}
 header{
   margin-top: -30px;
 }
@@ -27,6 +27,11 @@ footer {
   margin-bottom: -20px;
   z-index: -5;  
 }
+
+.navpillimg {
+    max-width: 60px;
+}
+
 x {
   font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
   line-height: 1.43;
@@ -332,3 +337,40 @@ a:hover {
     -webkit-transform: skew(30deg,20deg); 
     transform: skew(30deg,20deg);
 }
+
+.back0{
+     background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; 
+    height: 100%;
+}
+
+.back1{
+     background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; 
+    -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.parallax-window {
+    min-height: 400px;
+    background: transparent;
+}
+
+#wrap { width: 600px; height: 390px; padding: 0; overflow: hidden; }
+    #frame { width: 800px; height: 520px; border: 1px solid black; }
+    #frame {
+        -ms-zoom: 0.35;
+        -moz-transform: scale(0.35);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.35);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.35);
+        -webkit-transform-origin: 0 0;
+    }
