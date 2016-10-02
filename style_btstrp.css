@@ -16,10 +16,16 @@ body {
 	z-index: 100;
 }
 
+.opaque {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
 .outer { 
 	height:400px;
 	background: url(/NU_Physiology_1900.png);
 	z-index: -5;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 .SDCars {
     background: url(/selfdrivinggooglecars.png); 
@@ -31,9 +37,9 @@ body {
 */    z-index: -5; 
 
   }
-
+/*
 .textover { 
-	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	/*font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	position: absolute; 
 	top: 2em; 
 	left: 0; 
@@ -48,6 +54,10 @@ body {
 	font-size: 28px; 
 	opacity: .8 
 } 
+*/
+textover {
+
+}
 
 #reingold {
 	width:30%;
