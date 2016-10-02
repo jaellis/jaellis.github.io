@@ -48,14 +48,11 @@
 
 </head>
 
-<!-- <body onscroll = 'breadcrumbs();'> -->
 <body>
 	<!-- Preloader -->
 	<div id="preloader">
 		<div id="status">&nbsp;</div>
 	</div>
-	<!--  -->
-	<!-- <div class="hero-unit outer"> -->
 
 	<div class="navbar navbar-inverse bg-faded" role="navigation" data-spy="affix-top" data-offset-top="400" id="nav">
 		<div class="container">
@@ -115,18 +112,32 @@
 	</div>
 
 	<div class="row outer">
-		<!-- <div class="row pane" id="NU1900"> -->
-		<!-- <div class="col-md-12 outer"> -->
 		<div style="color:#fff;" class="row">
 			<div class="container">
 				<div class="col-xs-12 visible-xs visible-sm">&nbsp;</div>
-				<div class="col-xs-10 col-xs-offset-2 textover col-md-4" id="myname_div"><h1 class ="opaque" id="myname"><!-- Hi. My Name is James. --></h1>
+				<div class="col-xs-10 col-xs-offset-2 textover col-md-4" id="myname_div">
+					<h1 class ="opaque" id="myname">
+				</h1>
 				</div><div class="col-xs-5"></div>
-				<div class="col-xs-3 col-xs-offset-6 textover visible-md visible-lg" id="iam_div"><h1 class="opaque" id="iam"><!-- I am a --></h1></div><div class="col-xs-3"></div>
-				<div class="col-md-5 col-md-offset-4 visible-md visible-lg textover " id="neuro_div"><h1 class="opaque" id="neuro"><!-- Recovering Neuroscientist. --></h1></div><div class="col-md-3"></div>
-				<div class="col-xs-3 col-xs-offset-9 textover visible-md visible-lg" id="data_div"><h1 class="opaque" id="data"><!-- Data geek. --></h1></div>
-				<div class="col-xs-5 col-xs-offset-3 col-md-3 col-md-offset-1 visible-md visible-lg textover" id="dev_div"><h1 class="opaque" id="dev"><!-- Developer. --></h1></div><div class="col-xs-4"></div>
-				<div class="col-xs-5 col-xs-offset-1 col-md-3 col-md-offset-3 visible-md visible-lg textover" id="res_div"><h1 class="opaque" id="res"><!-- Researcher. --></h1></div><div class="col-xs-6 col-md-2"></div>
+				<div class="col-xs-3 col-xs-offset-6 textover visible-md visible-lg" id="iam_div">
+					<h1 class="opaque" id="iam"></h1>
+				</div>
+				<div class="col-xs-3"></div>
+				<div class="col-md-5 col-md-offset-4 visible-md visible-lg textover " id="neuro_div">
+					<h1 class="opaque" id="neuro"></h1>
+				</div>
+				<div class="col-md-3"></div>
+				<div class="col-xs-3 col-xs-offset-9 textover visible-md visible-lg" id="data_div">
+					<h1 class="opaque" id="data">
+				</h1>
+				</div>
+				<div class="col-xs-5 col-xs-offset-3 col-md-3 col-md-offset-1 visible-md visible-lg textover" id="dev_div">
+					<h1 class="opaque" id="dev"></h1>
+				</div>
+				<div class="col-xs-4"></div>
+				<div class="col-xs-5 col-xs-offset-1 col-md-3 col-md-offset-3 visible-md visible-lg textover" id="res_div">
+					<h1 class="opaque" id="res"></h1>
+				</div><div class="col-xs-6 col-md-2"></div>
 			</div>
 		</div>
 		<!-- </div> -->
@@ -134,26 +145,7 @@
 
 	<div class="row pane" id="row-pane-outer">
 
-		<!-- Display different personal attributes when xs viewport -->
-		<!-- <div class="col-md-3 col-md-offset-2 col-xs-6 col-xs-offset-3 visible-sm visible-xs" >
-			<h1 class="breadcrumbs" id="recovering-sm">Recovering neuroscientist.</h1><br><br><br>
-			<h1 class="breadcrumbs" id="datageek-sm">Data geek.<br><br></h1>
-		</div> -->
-
-		<!-- THIS WORKS FOR BREADCRUMBS - LG -->
-		<!-- <div class="col-xs-3 col-sm-3 visible-sm visible-xs">&nbsp;</div>
-		<div class="col-md-3 col-md-offset-2 visible-md visible-lg">
-			<h1 id="recovering-lg">Recovering neuroscientist.</h1><br><br>
-			<h1 class="breadcrumbs" id="datageek-lg">Data geek.</h1><br><br>
-			<h1 class="breadcrumbs" id="developer-lg">Developer.<p style="font-size:9px;">You're looking at it.</p><br><br></h1>
-			<h1 class="breadcrumbs" id="uer-lg">User Experience Researcher.</h1><br><br><br>
-			<h1 class="breadcrumbs" id="writer-lg">Writer.</h1>
-		</div>
-		<div class="col-md-1" id="thing2"></div> -->
-		<!-- END WORKING BREADCRUMBS - LG-->
-
 		<div class="col-md-8  col-offset-2" id="work">
-			<!-- <div class="row"> -->			
 			<div class="col-xs-6 col-xs-offset-3 gray text-center visible-md visible-lg">
 				<h3>Places I've worked</h3>
 			</div>
@@ -162,37 +154,36 @@
 				<h3>Places I've worked</h3>
 			</div>
 
-			<!-- <div class="col-md-12 col-xs-12 col-xs-offset-3" id="tab-pane-professional"> -->
 			<div class="row">
 				<div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1">
 					<ul class="nav nav-pills" role="tablist">
 						<li id="statspill"role="presentation" class="active">
-							<a href="#stats" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#statsinfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="2016_STATS_Logo.png" style="width:110px;height:50px;" align="bottom">
 							</a>
 						</li>
 						<li id="kennapill" role="presentation">
-							<a href="#kenna" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#kennainfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="kenna_logo.png" style="width:115px;height:50px;max-width: 60px;" align="bottom">
 							</a>
 						</li>
 						<li id="mozillapill" role="presentation">
-							<a href="#mozilla" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#mozillainfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="firefox_logo-only_RGB.png" alt="Firefox" style="width:50px;height:50px;max-width: 60px;">
 							</a>
 						</li>
 						<li id="googlepill" role="presentation">
-							<a href="#google" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#google"info aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="google_logo_new.png" alt="Google" style="width:120px;height:65px;max-width: 60px;">
 							</a>
 						</li>
 						<li id="northwesternpill" role="presentation">
-							<a href="#northwestern" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#northwesterninfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="NWemblem.gif" style="width:60px;height:60px;max-width: 60px;" align="bottom">
 							</a>
 						</li>
 						<li id="uicpill" role="presentation">
-							<a href="#uic" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#uicinfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="UIC_red_dot.png" style="width:50px;height:50px;max-width: 60px;" align="bottom">
 							</a>
 						</li>
@@ -248,10 +239,6 @@
 				<!-- </div> -->
 				<!-- </div> -->
 			</div>
-			<!-- <div class="col-md-3 col-md-offset-1 visible-xs visible-sm col-xs-offset-3">
-				<h1 class="breadcrumbs" id="developer-sm"><br>Developer.<span style="font-size:9px;">You're looking at it.</span></h1><h1 class="breadcrumbs" id="uer-sm"><br><br>User Experience Researcher.</h1><br><br><br><h1 class="breadcrumbs" id="writer-sm">Writer.
-			</h1>
-		</div> -->
 	</div>	
 	<!-- <div class ="row"> -->
 
