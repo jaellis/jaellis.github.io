@@ -146,18 +146,20 @@
 <div class="row">
   <!-- <div class ="col-md-10 col-md-offset-1"><h4>My adopted city's crime is an ever-evolving blight. In my free time I try to visualize its spread, patterns and underlying stories.</h4><br>
     </div> -->
-    <div class="col-xs-6 col-xs-offset-2">Here's a Map of Potholes in Chicago (2011-2016).</div>
+    <div class="col-xs-6 col-xs-offset-2">Here's a Map of Potholes in Chicago (2011-2016). <br><br>You can zoom in on and drag the map. Use buttons to change selection.</div>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-6 col-xs-offset-1" id="map">
+  <div class="col-xs-12 col-xs-offset-1" id="map">
     <!-- <div class="embed-responsive embed-responsive-4by3"> -->
     <!-- </div> -->
     <!-- </div> -->
-    <div class="col-md-3">
+    <div class="col-md-4">
       <form>
         <input type="radio" name="dataset" value="tot_potholes" onClick="updateData('tot_potholes')"> Potholes (Total)<br>
-
+        <input type="radio" name="dataset" value="med_potholes_per_block" onClick="updateData('med_potholes_per_block')"> Potholes Per Block (Median)<br>
+        <input type="radio" name="dataset" value="hardship" onClick="updateData('hardship')"> Hardship Score (Census)<br>
+        <input type="radio" name="dataset" value="per_capita_income" onClick="updateData('per_capita_income')"> Per Capita Income (Census)<br>
       </form>
     </div>
   </div>

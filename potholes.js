@@ -1,7 +1,7 @@
 var dispatch = d3.dispatch("load", "statechange");
 
 //Map dimensions (in pixels)
-var width = 491,
+var width = 591,
     height = 600;
 // var width = document.getElementById("map").style.width,
 //     height = document.getElementById("map").style.height;
@@ -151,7 +151,7 @@ function updateData(crimeType) {
     }
       var max = d3.max(thiscrime);
 
-console.log(thiscrime);
+console.log('update');
     // Scale chloropleth
       var color = d3.scale.quantize()
         .domain([0,max])
@@ -164,9 +164,9 @@ console.log(thiscrime);
          console.log(d.properties[crimeType]);
         });
     features
-        // .on("mouseover",showTooltip)
-        // .on("mousemove",moveTooltip)
-        // .on("mouseout",hideTooltip)
+        .on("mouseover",showTooltip)
+        .on("mousemove",moveTooltip)
+        .on("mouseout",hideTooltip)
         .on("click",clicked);    
 
     // More Graph stuffz //////////////////
@@ -247,12 +247,12 @@ function highlightBar(filterObj){
 //Create a tooltip, hidden at the start
 function showTooltip(d) {
   moveTooltip();
-
+console.log(d);
   tooltip.style("display","block")
-      .text("District: " + d.properties.SECTOR);
+      .text("Community: " + d.properties.community);
 
   // Highlight corresponding bar in graph
-  highlightBar(d.properties.BEAT_NUM); 
+  // highlightBar(d.properties.BEAT_NUM); 
 }
 
 //Move the tooltip to track the mouse
