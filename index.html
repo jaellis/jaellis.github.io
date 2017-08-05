@@ -33,8 +33,6 @@
 	<script src="textappear.js"></script>
 	<!-- <script src="collision_detection.js"></script> -->
 	<script type="text/javascript" src="/ScrollMagic.min.js"></script>
-	<!--<script src="/debug.addIndicators.js"></script> -->
-	<!-- <script src="scrollmagic.js"></script> -->
 	<!-- Preloader -->
 	<script type="text/javascript">
     //<![CDATA[
@@ -78,7 +76,7 @@
 						<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
 							<li><h6 style="color:red;" class="text-center">Not Mobile-Friendly</h6></li>
 							<li>
-								<a href="http://inyourownwords.s424-dev.com/#!/dashboard" target="_blank">The Troubles: Northern Ireland</a>
+								<!-- <a href="http://inyourownwords.s424-dev.com/#!/dashboard" target="_blank">The Troubles: Northern Ireland</a> -->
 							</li>
 							<li>
 								<a href="visualizations.html">Chicago Crime</a>
@@ -145,12 +143,8 @@
 
 	<div class="row pane" id="row-pane-outer">
 
-		<div class="col-md-8  col-offset-2" id="work">
-			<div class="col-xs-6 col-xs-offset-3 gray text-center visible-md visible-lg">
-				<h3>Places I've worked</h3>
-			</div>
-			<div class="col-xs-3 visible-md visible-lg"></div>
-			<div class="gray text-left col-xs-9 col-xs-offset-3 visible-sm visible-xs">
+		<div class="col-xs-12 col-md-10 col-md-offset-1" id="work">
+			<div class="col-xs-12 gray text-center">
 				<h3>Places I've worked</h3>
 			</div>
 
@@ -173,7 +167,7 @@
 							</a>
 						</li>
 						<li id="googlepill" role="presentation">
-							<a href="#google"info aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+							<a href="#googleinfo"info aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="google_logo_new.png" alt="Google" style="width:120px;height:65px;max-width: 60px;">
 							</a>
 						</li>
@@ -191,25 +185,19 @@
 
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="statsinfo">
-							<h3>Developer/Data Analyst</h3>
-							<p>I am currently a developer and data analyst at <a href="http://www.stats.com" target="_blank">STATS</a>, the world leader in sports statistics. My work involves generating informative statistics, on-demand, from hundreds of millions of rows of data. Using data from our <a href="https://en.wikipedia.org/wiki/SportVU" target="_blank">SportVU tracking system</a>, I am able to answer questions like "How directly does Chris Paul drive to the basket vs. Steph Curry?" or "Where on the court is LeBron least and most effective using ball screens?" I provide statistical analysis and solutions to NFL, NBA, and NCAA teams. I also create <!-- <button class="btn-success" onclick ="graph_nodes('\QBtoWR.csv','#thing2')"> -->data visualizations<!-- </button> --> and write
-								<div class="btn-group">
-									<button type="button" class = "btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:0px solid transparent;">articles <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="http://www.stats.com/blog/2015/10/20/visualizing-the-field-advanced-insights-for-college-football/" target="_blank">Visualizing the field (CFB)</a>
-										</li>
-										<li>
-											<a href="http://www.stats.com/insights/nfl/make-desperation-week-7-rb-pick-next-fantasy-season/" target="_blank">Chance to Carry</a>
-										</li>
-										<li>
-											<a href="http://www.stats.com/blog/2015/12/16/x-info-college-playoff-analysis-clemson-vs-oklahoma/" target="_blank">CFB Playoff: Clemson Vs. Oklahoma</a>
-										</li>
-									</ul>
-								</div>for our marketing department.</p>
+							<h3>Software Engineer</h3>
+							<div>I am currently a software engineer at <a href="http://www.stats.com" target="_blank">STATS</a>, the world leader in sports statistics. My work is varied:
+								<dl class="dl-horizontal">
+									<dt>RESTful API</dt>
+									<dd>Many of our largests clients (e.g. Google, Microsoft, Amazon, Apple) hit our APIs with hundreds of calls a minute. I help maintain and build out new endpoints for these clients while keeping our response times at low latency and live score updates streaming. This is all in c#/.NET</dd>
+									<dt>Stats Requests</dt>
+									<dd>I create statistical reports for, say, the Golden State Warriors, using data from our <a href="https://en.wikipedia.org/wiki/SportVU" target="_blank">SportVU tracking system</a> to answer questions like "How directly does Chris Paul drive to the basket vs. Steph Curry?" or "Where on the court is LeBron least and most effective using ball screens?" This involves writing sql queries to calculate statistics from what easily becomes a hundred million rows of data (about one half of the NBA season worth of tracking data).</dd>
+									<dt>Internal Websites</dt>
+									<dd>STATS covers dozens of sports and hundreds of leagues all over the world. A lot of this data is entered by reporters in-venue or watching the game via video, and they need data-entry portals foir us to create a rich statistical report on everything from South African Rugby to English Premier League to International Cricket Council matches. I help build and maintain these tools, from internal API calls and their oracle procedures to the MVC framework and Angular front-end.</dd>
+								</dl>
 							</div>
-							<div role="tabpanel" class="tab-pane fade" id="kennainfo">
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="kennainfo">
 								<h3>User Experience Contractor</h3>
 								<p>In an effort to increase conversion of trial users to full-time clients, I combed through Kenna Security's user data to generate insights into user behavior. To help marketing and sales teams with user conversion, I created <!-- <button class="btn-success" onclick="sunburst()"> -->visualizations<!--</button>--> that demonstrate typical user flows. I made use of Amazon Web Services S3 buckets and API. I also pulled data from SalesForce and Kissmetrics using their APIs to inform the data with qualitative information.</p>
 							</div>
@@ -230,24 +218,12 @@
 								<h3>Data Analyst</h3>
 								<p>In two years at UIC, I was an author on <a href="https://scholar.google.com/citations?user=5xpXI1gAAAAJ&hl=en" target="_blank">six peer-reviewed publications</a>, generally as the main data analyst.  I worked on various studies with the collective goal of establishing neurological biomarkers for pediatric psychological disorders such as ADHD and bipolar disorder. I performed statistical analysis and signal processing on functional magnetic resonance imaging data.</p>
 							</div>
-							<!-- </div> -->
-							<!-- </div> -->
 						</div>
 
 					</div>
 				</div>
-				<!-- </div> -->
-				<!-- </div> -->
 			</div>
 	</div>	
-	<!-- <div class ="row"> -->
-
-	<!-- </div> -->
-
-	<!-- <div class="row"> -->
-	<!-- <div class ="col-md-6 col-md-offset-6" style="padding-top:100px;"><button onclick="POVdoAll()">POV test button</button></div>	 -->
-	<!-- </div> -->
-
 	<div class="nav navbar-inverse " role="navigation">
 		<div class="container">
 			<div class="navbar-text pull-left">
@@ -259,7 +235,5 @@
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
-<!-- <script type="text/css" rel="stylesheet" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css"></script> -->
-<!-- <script type="text/css" rel="stylesheet" href="/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css"></script> -->
 <!-- Latest compiled and minified JavaScript -->
 <script type="text/javascript" src="/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>	
