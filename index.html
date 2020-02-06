@@ -99,7 +99,7 @@
 						</ul>
 					</li>
 					<li class="nav-item">
-						<a href="Ellis_CV_160205.pdf" target="_blank">Curriculum Vitae</a>
+						<a href="Ellis_CV_200206.pdf" target="_blank">Curriculum Vitae</a>
 					</li>
 					<li>
 						<a class="nav-link" href="mailto:jellis1080@gmail.com">Contact</a>
@@ -151,7 +151,12 @@
 			<div class="row">
 				<div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1">
 					<ul class="nav nav-pills" role="tablist">
-						<li id="statspill"role="presentation" class="active">
+						<li id="loebpill"role="presentation" class="active">
+							<a href="#loebinfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
+								<img src="loeb_nyc_logo.jpg" style="width:140px;height:40px;" align="bottom">
+							</a>
+						</li>
+						<li id="statspill"role="presentation">
 							<a href="#statsinfo" aria-controls="home" role="tab" data-toggle="tab" onclick="checkon('thing2')">
 								<img src="2016_STATS_Logo.png" style="width:110px;height:50px;" align="bottom">
 							</a>
@@ -184,16 +189,29 @@
 					</ul>
 
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="statsinfo">
+						<div role="tabpanel" class="tab-pane active" id="loebinfo">
+							<h3>Data Scientist</h3>
+							<div>As a business analyst and then data scientist at <a href="http://www.loeb.nyc" target="_blank">loeb.nyc</a> my work spans the analytical spectrum from KPI reporting and dashboard building to predictive models and clustering algorithms.
+								<dl class="dl-horizontal">
+									<dt>Reporting</dt>
+									<dd>For much of my first year I worked with an early-stage startup providing near real-time retail analytics to independent spirits shops: <a href="https://www.3x3insights.com/" target="_blank">3x3 Insights</a>. I created all of the user-facing dashboards; helped design and implement the database, and constructed an entire layer of cache tables for reporting purposes.</dd>
+									<dt>Prediction</dt>
+									<dd>Working with skincare company <a href="https://www.siobeauty.com/" target="_blank">SiO</a> I built software to pull down user information from their email service provider, clean and normalize the data, and create predictions around a user's likelihood to make a purchase.</dd>
+									<dt>Clustering</dt>
+									<dd>At the core of 3x3 Insights value proposition to independent retailers is the ability to see the next big trend in bev-alc coming before the wave has crested. To better inform our partners while preserving anonymity of neighboring stores and competitors, I constructed information-rich clusters of retailers in which to investigate product and pricing movement.</dd>
+								</dl>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="statsinfo">
 							<h3>Software Engineer</h3>
-							<div>I am currently a software engineer at <a href="http://www.stats.com" target="_blank">STATS</a>, the world leader in sports statistics. My work is varied:
+							<div>For two years, I was a software engineer at <a href="http://www.stats.com" target="_blank">STATS</a>, the world leader in sports statistics. My work was varied:
 								<dl class="dl-horizontal">
 									<dt>RESTful API</dt>
-									<dd>Many of our largests clients (e.g. Google, Microsoft, Amazon, Apple) hit our APIs with hundreds of calls a minute. I help maintain and build out new endpoints for these clients while keeping our response times at low latency and live score updates streaming. This is all in c#/.NET</dd>
+									<dd>Many of our largests clients (e.g. Google, Microsoft, Amazon, Apple) hit our APIs with hundreds of calls a minute. I helped maintain and build out new endpoints for these clients while keeping our response times at low latency and live score updates streaming. This is all in c#/.NET</dd>
 									<dt>Stats Requests</dt>
-									<dd>I create statistical reports for, say, the Golden State Warriors, using data from our <a href="https://en.wikipedia.org/wiki/SportVU" target="_blank">SportVU tracking system</a> to answer questions like "How directly does Chris Paul drive to the basket vs. Steph Curry?" or "Where on the court is LeBron least and most effective using ball screens?" This involves writing sql queries to calculate statistics from what easily becomes a hundred million rows of data (about one half of the NBA season worth of tracking data).</dd>
+									<dd>I created statistical reports for, say, the Golden State Warriors, using data from our <a href="https://en.wikipedia.org/wiki/SportVU" target="_blank">SportVU tracking system</a> to answer questions like "How directly does Chris Paul drive to the basket vs. Steph Curry?" or "Where on the court is LeBron least and most effective using ball screens?" This involved writing sql queries to calculate statistics from what easily becomes a hundred million rows of data (about one half of the NBA season worth of tracking data).</dd>
 									<dt>Internal Websites</dt>
-									<dd>STATS covers dozens of sports and hundreds of leagues all over the world. A lot of this data is entered by reporters in-venue or watching the game via video, and they need data-entry portals foir us to create a rich statistical report on everything from South African Rugby to English Premier League to International Cricket Council matches. I help build and maintain these tools, from internal API calls and their oracle procedures to the MVC framework and Angular front-end.</dd>
+									<dd>STATS covers dozens of sports and hundreds of leagues all over the world. A lot of this data is entered by reporters in-venue or watching the game via video, and they need data-entry portals foir us to create a rich statistical report on everything from South African Rugby to English Premier League to International Cricket Council matches. I helped build and maintain these tools, from internal API calls and their oracle procedures to the MVC framework and Angular front-end.</dd>
 								</dl>
 							</div>
 						</div>
@@ -227,7 +245,7 @@
 	<div class="nav navbar-inverse " role="navigation">
 		<div class="container">
 			<div class="navbar-text pull-left">
-				<p>&copy; 2015 James Aaron Ellis</p>
+				<p>&copy; 2020 James Aaron Ellis</p>
 			</div>
 		</div>
 	</div>
